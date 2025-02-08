@@ -34,3 +34,24 @@ yarn-error.log*
 
 # markdownlint
 .markdownlint.json
+
+# intellij
+.idea
+
+# TODO: Since we removed CIP, CPS, Changelog these are technically no longer needed, will still keep 
+# these entries for now to prevent people from committing downloaded files
+/docs/governance/cardano-improvement-proposals/*
+/docs/governance/cardano-problem-statements/*
+/static/img/cip/*
+/static/img/cps/*
+/changelog/*
+
+# Auto generated content like Rust Library, Token Registry 
+/docs/native-tokens/token-registry/*
+/docs/get-started/cardano-serialization-lib/*
+
+# (only check in yarn.lock when deliberately establishing a software baseline)
+yarn.lock
+
+# Temporary files that sometimes get checked in by accident
+.yarn/**

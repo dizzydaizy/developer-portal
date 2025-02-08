@@ -1,9 +1,10 @@
 ---
 id: overview
+sidebar_position: 1
 title: Get Started with Cardano Serialization Lib
 sidebar_label: Overview
 description: Get Started with Cardano Serialization Lib
-image: ./img/og-developer-portal.png
+image: /img/og/og-getstarted-serialization-lib.png
 --- 
  
 This is a library for serialization & deserialization of data structures
@@ -63,9 +64,9 @@ following:
 
 Here are the location of the original [CDDL](http://cbor.io/tools.html) specifications:
 
--  Byron: [link](https://github.com/input-output-hk/cardano-ledger-specs/tree/master/byron/cddl-spec)
--  Shelley: [link](https://github.com/input-output-hk/cardano-ledger-specs/tree/master/shelley/chain-and-ledger/shelley-spec-ledger-test/cddl-files)
--  Mary: [link](https://github.com/input-output-hk/cardano-ledger-specs/tree/master/shelley-ma/shelley-ma-test/cddl-files)
+-  Byron: [link](https://github.com/IntersectMBO/cardano-ledger/tree/master/eras/byron/impl)
+-  Shelley: [link](https://github.com/IntersectMBO/cardano-ledger/tree/master/eras/shelley/impl)
+-  Mary: [link](https://github.com/IntersectMBO/cardano-ledger/tree/master/eras/mary/impl)
 
 ## Building
 

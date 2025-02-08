@@ -3,7 +3,7 @@ id: portal-style-guide
 title: Style Guide
 sidebar_label: Style Guide
 description: Style guide for the Cardano developer portal.
-image: ./img/og-developer-portal.png
+image: /img/og/og-developer-portal.png
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/). [Markdown](https://github.github.com/gfm/) is a way to style text on the web. You control the display of the document; formatting words as bold or italic, adding images, and creating lists are just a few of the things we can do with Markdown. Mostly, Markdown is just regular text with a few non-alphabetic characters thrown in, like `#` or `*`.
@@ -131,7 +131,7 @@ Some text to show that the reference links can follow later.
 
 Or leave it empty and use the [link text itself].
 
-URLs and URLs in angle brackets will automatically get turned into links. http://www.cardano.org or <http://www.cardano.org>.
+URLs will automatically get turned into links. Example: https://www.cardano.org
 
 Some text to show that the reference links can follow later.
 
@@ -363,7 +363,7 @@ function HelloCodeTitle(props) {
 
 You can use tabs to display code examples in different languages. For example:
 
-```html
+ html
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
@@ -399,7 +399,7 @@ import TabItem from '@theme/TabItem';
 
   </TabItem>
 </Tabs>
-```
+ 
 
 <Tabs
   defaultValue="js"
@@ -706,6 +706,57 @@ This is a tip admonition with a custom title
   </TabItem>
 </Tabs>
 
+## Mermaid
+
+To use Mermaid diagram, add a code block with language `mermaid`. See the [Mermaid syntax documentation](https://mermaid-js.github.io/mermaid/#/./n00b-syntaxReference) for more information on the Mermaid syntax and the different diagrams. Some examples:
+
+```mermaid
+mindmap
+  root((Cardano))
+    Technology
+      Blockchain
+      Proof of Stake
+        Ouroboros
+      Smart Contracts
+        Aiken
+        Marlowe
+    Community
+      Developers
+      Stake Pool Operators
+      Ambassadors
+    Use Cases
+      Decentralized Finance
+      Identity Management
+        KERI
+      Supply Chain
+    Research
+      Peer-Reviewed Papers
+      Academic Collaboration
+      Formal Methods
+    Ecosystem
+      Native Tokens
+      dApps
+      Catalyst
+```
+
+```mermaid
+flowchart LR
+  A[Start] --> B{Decision}
+  B -->|Yes| C[Continue]
+  B -->|No| D[Stop]
+```
+
+```mermaid
+pie 
+    "Metadata" : 81
+    "Smart Contracts" : 62
+    "Simple transactions" : 231
+```
+
+
+
+
+## Other style elements
 Please try to avoid other style elements, and always keep in mind that people with visual handicaps should also be able to cope with your content.
 
 ## Editor extensions and configurations
@@ -819,3 +870,37 @@ When you write guides for `cardano-wallet` or other components with an API, you 
 </TabItem>
 
 </Tabs>
+
+## Editorial Style Guide
+To make everything consistent we should agree on spellings and terms here.
+
+|  Spelling/Term   | Comment                    |
+| ---------------- | -------------------------- |
+| `ada`            | When talking about the cryptocurrency, do not capitalize, unless at the beginning of a sentence. The idea behind this is to treat it like dollars or euros. If you are in doubt, in English, prefer ada over ADA. Capitalised ADA stands for the ticker symbol only. |
+| `ADA`           | The ticker symbol for ada, like EUR or USD. |
+| `tAda`           | Test ada is tAda, not tADA or TADA. See `ada`. |
+| `Basho`           | The fourth era of the Cardano development focused on performance. Named after Matsuo Basho, a Japanese poet and the master of haiku. |
+| `Byron`           | First era in Cardano development. Named after the Romantic poet who was the father of Ada Lovelace. |
+| `the Cardano Foundation`           | Always use **the** Cardano Foundation. |
+| `DApp` | Note the capitalization: Decentralized Application. |
+| `dcSpark` | Creators of Flint Wallet and Milkomeda. Capitalized S, everything else lower case. |
+| `DRep` | Note the capitalization: Delegated Representative. `DRep` as an abbreviation for Delegated Representative follows standard practices for abbreviations in English: taking the first letter of each word. This makes it intuitive and clear in most contexts. It is also in line with the `DApp` abbreviation. In crypto, the lowercase “d“ is often used to signify “decentralized,” as in dApp (decentralized application) or dGov (decentralized governance). Using “dRep” might imply “decentralized representative”.|
+| `EMURGO` | All caps in line with EMURGO’s branding. |
+| `the Foundation` | Interchangeable with `the Cardano Foundation`, the is not capitalized, but Foundation should be. |
+| `GitHub` | Note the capitalized H. |
+| `Goguen` | The third era of the Cardano development focused on smart contracts. Named in honour of Joseph Goguen, an US computer scientist. |
+| `hard fork` | Two words. |
+| `IOHK` | IOHK is now IOG. |
+| `IOG` | IOG was IOHK. |
+| `Mainnet`    | One word.  Capitalise when it's a noun (the _Mainnet_) but not when it's an adjective (_mainnet_ functionality), qualified by another proper name (the Cardano _mainnet_), or used as a symbol (e.g. enable Marlowe on `mainnet`). |
+ `Ouroboros`           | Ouroboros is a family of Cardano's consensus protocols. There are different flavors: Classic, Praos, Genesis, Chronos |
+| `sidechains` | One word. |
+| `stake pool` | Two words. |
+| `staking`    | Try to avoid term `staking` without context as it is ambiguous. `staking` refers to the whole process of both delegating and setting up a pool but many people confuse this with the actual process of creating blocks. `delegating` means that people delegate their stake to a stake pool. |
+| `Strica` | Creators of Typhon Wallet, Cardanoscan and Flac Finance. Capitalized S, everything else lower case. |
+| `proof of stake` | Lower case. Hyphenate when followed by a noun: proof-of-stake systems. |
+| `proof of work` | Lower case. Hyphenate when followed by a noun: proof-of-work systems. |
+| `Testnet`    | One word.  Capitalise when it's a particular testnet (e.g. Preview _testnet_) but not when it's an adjective (e.g. _testnet_ functionality) or referring to more than one (e.g. new iterations of the _testnets_). |
+| `use case` | Not use-case. |
+| `Voltaire` | The fifth era of the Cardano development focused on governance and treasury. Named after the French philosopher who prized criticism and argued for the separation of church and state. |
+| `white paper` | Two words. |

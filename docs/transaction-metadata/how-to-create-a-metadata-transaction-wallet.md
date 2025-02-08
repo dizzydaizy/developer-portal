@@ -3,15 +3,15 @@ id: how-to-create-a-metadata-transaction-wallet
 title: How to create a metadata transaction using cardano-wallet
 sidebar_label: Create a metadata transaction (Wallet)
 description: How to create a metadata transaction using `cardano-wallet`
-image: ./img/og-developer-portal.png
+image: /img/og/og-developer-portal.png
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 :::note
-This guide assumes that you have a basic understanding of `cardano-wallet` and `cardano-cli`, how to use it and that you have installed it into your system. Otherwise, we recommend reading [Installing cardano-node](../get-started/installing-cardano-node), [Running cardano-node](../get-started/running-cardano), and [Exploring Cardano Wallets](../integrate-cardano/creating-wallet-faucet) guides first.
+This guide assumes that you have a basic understanding of `cardano-wallet` and `cardano-cli`, how to use it and that you have installed it into your system. Otherwise, we recommend reading [Installing cardano-node](docs/get-started/cardano-node/installing-cardano-node.md), [Running cardano-node](docs/get-started/cardano-node/running-cardano.md), and [Exploring Cardano Wallets](../integrate-cardano/creating-wallet-faucet) guides first.
 
-This guide also assumes that you have `cardano-node` and `cardano-wallet` running in the background and connected to the `testnet` network.
+This guide also assumes that you have `cardano-node` and `cardano-wallet` running in the background and connected to one of the `testnet` networks.
 :::
 
 ## Overview 
@@ -64,7 +64,7 @@ curl --request GET \
   --url 'http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce/addresses?state=unused' | jq '.[0]["id"]'
 ```
 
-Now that you have a **wallet address**, you can now request for some `tADA` funds from the [Cardano Testnet Faucet](https://developers.cardano.org/en/testnets/cardano/tools/faucet).
+Now that you have a **wallet address**, you can now request for some `tAda` funds from the [Cardano Testnet Faucet](https://developers.cardano.org/docs/integrate-cardano/testnet-faucet/).
 
 Once you have some funds, we can now create the sample metadata that we want to store into the blockchain.
 

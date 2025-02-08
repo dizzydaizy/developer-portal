@@ -1,16 +1,18 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8d3fae14-1136-4a30-8224-f5602a5a2360/deploy-status)](https://app.netlify.com/sites/staging-dev-portal/deploys)
+
 # Cardano Developer Portal
 
-Welcome to the Cardano Developer Portal. To make the difference between Cardano mainnet functionality and testnet functionality clearer, we moved the old content of developers.cardano.org to testnets.cardano.org with the launch of this developer portal.
+We wanted to build a developer portal as open and inclusive as Cardano. A portal that is in the hands of the Cardano community and can be constantly evolved by it.
 
-We wanted to build an open and inclusive, easy to use developer portal that offers guidance and allows community contribution. To achieve this we have chosen [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+For this to be successful, the portal relies on your contributions, and the fact that you are reading this text probably means that you have something to contribute, even if you are not a Developer.
 
-Please find a detailed installation guide on [developers.cardano.org/docs/portal-contribute/](https://developers.cardano.org/docs/portal-contribute/). 
+Please find a detailed installation guide on [developers.cardano.org/docs/portal-contribute/](https://developers.cardano.org/docs/portal-contribute#installation). 
 
 
 ## Requirements:  
 
-[Node.js](https://nodejs.org/en/download/) version >= 12.13.0 or above  
-[Yarn](https://yarnpkg.com/en/) version >= 1.5  
+[Node.js](https://nodejs.org/en/download/) version >= 18.0
+[Yarn](https://yarnpkg.com/en/) version >= 1.20
 On macOS you also need Xcode and Command Line Tools.
 
 
@@ -30,6 +32,14 @@ cd developer-portal
 
 ```console
 yarn install
+```
+
+## Production build 
+
+Create at least once a production build (as this pulls missing files)
+
+```console
+yarn build
 ```
 
 ## Local development

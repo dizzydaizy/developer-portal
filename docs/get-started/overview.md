@@ -4,7 +4,7 @@ slug: /get-started/
 title: Get Started
 sidebar_label: Overview
 description: Get Started
-image: ./img/og-developer-portal.png
+image: /img/og/og-getstarted-overview.png
 --- 
 ![Cardano Get Started](../../static/img/card-get-started-title.svg)
 
@@ -25,7 +25,7 @@ Besides cryptographic research, there was game-theoretic research, identity-mana
 ## What you need to bring
 To get the most out of the Cardano Developer Portal, you should  have programming experience and a basic understanding of blockchain concepts of Cardano such as [UTxO](technical-concepts#unspent-transaction-output-utxo), [transactions](technical-concepts#transactions), [addresses](technical-concepts#addresses), [key derivation](technical-concepts#key-derivation), and [networking](technical-concepts#networking). 
 
-If you are unfamiliar with these terms, start with [technical concepts](technical-concepts), and you can complete the [stake pool course](../operate-a-stake-pool/#stake-pool-course) afterward. It will also help you understand basic concepts, even if you don't want to run a stake pool. 
+If you are unfamiliar with these terms, start with [technical concepts](technical-concepts), and you can complete the [stake pool course](../operate-a-stake-pool/) afterward. It will also help you understand basic concepts, even if you don't want to run a stake pool. 
 
 ## Cardano is different 
 If you have experience with other smart contract platforms and want to start building on Cardano, it is vital to know its differences:
@@ -38,21 +38,21 @@ If you have experience with other smart contract platforms and want to start bui
 ## What you can do on Cardano today
 - You can send and receive [native tokens](../native-tokens/), including ada.
 - You can delegate your ada to one of the [existing pools](../../showcase?tags=pooltool) and earn rewards.
-- You can [vote with your ada](../fund-your-project/project-catalyst#participate-as-a-voter) to distribute over a billion dollars worth of ada from the treasury to fund community-driven proposals on [Project Catalyst](../fund-your-project/project-catalyst).
-- You can earn ada rewards by [voting on proposals](../fund-your-project/project-catalyst#participate-as-a-voter). 
+- You can [vote with your ada](../governance/project-catalyst#participate-as-a-voter) to distribute over a billion dollars worth of ada from the treasury to fund community-driven proposals on [Project Catalyst](../governance/project-catalyst).
+- You can earn ada rewards by [voting on proposals](../governance/project-catalyst#participate-as-a-voter). 
 - You can participate in the [Cardano Improvement Proposals](technical-concepts#cardano-improvement-proposals-cip) (CIP) process.
 - You can interact with [smart contracts](../smart-contracts/).
 
 ## Why build on Cardano?
 - Cardano offers a better infrastructure to build products because it is faster, more secure, and cost-effective.
 - Cardano offers accurate cost predictability when it comes to transactions. There are no auctions for transaction fees.
-- Cardano has an energetic community and more than one million wallets. If you stick to specific standards, we are keen to try out and engage with new products. Participating now makes you a first mover.
-- Cardano brings its venture fund. If you build on Cardano you can get [your project funded](../fund-your-project/). Every 6 to 8 weeks, projects can be proposed, discussed, and voted on by the Cardano community.
+- Cardano has an energetic community and more than two million wallets. If you stick to specific standards, we are keen to try out and engage with new products. Participating now makes you a first mover.
+- Cardano brings its venture fund. If you build on Cardano you can get [your project funded](../governance/project-catalyst). Every 6 to 8 weeks, projects can be proposed, discussed, and voted on by the Cardano community.
 - Cardano is a proof-of-stake blockchain. By design, it consumes much less energy and computational power.
 - Cardano is built with the rigor of high-assurance formal development methods. The consensus mechanism [Ouroboros](https://cardano.org/ouroboros/) was delivered with several peer-reviewed papers presented in top-tier conferences and publications in cybersecurity and cryptography. If you build on Cardano, you build on this foundation.
 
 ## What you can build on Cardano today
-- You can [integrate Cardano](../integrate-cardano) into existing websites and services.
+- You can [integrate Cardano](../integrate-cardano/) into existing websites and services.
 - You can issue [native tokens](../native-tokens/) and [NFTs](../native-tokens/minting-nfts).
 - You can add [metadata to transactions](../transaction-metadata/) to give transactions a story, a background or even an identity. 
 - You can prove the existence of a file, text or any other data at a specific point in time with [transaction metadata](../transaction-metadata/). You can even use [transaction metadata](../transaction-metadata/) to validate and verify external physical products and genuine articles.

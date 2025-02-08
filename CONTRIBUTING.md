@@ -6,9 +6,9 @@ The following is a set of guidelines for contributing to the Developer Portal, w
 
 ## Code of Conduct
 
-@TODO link
+See [CODE_OF_CONDUCT.md](https://github.com/cardano-foundation/developer-portal/blob/staging/CODE_OF_CONDUCT.md#contributor-covenant-code-of-conduct)
 
-## I don't want to read all of this, I just have question!
+## I don't want to read all of this, I just have a question!
 
 Please check out our [Discussions section](https://github.com/cardano-foundation/developer-portal/discussions). Maybe you find a thread that answers your questions. If not, feel free to [open a new thread](https://github.com/cardano-foundation/developer-portal/discussions/new) and explain what you are wondering about. 
 
@@ -46,7 +46,7 @@ To maintain the quality of content on the developer portal, we use pull requests
 
 Please follow these steps to have your contribution considered by the maintainers:
 
-1. Follow all instructions in [the template](PULL_REQUEST_TEMPLATE.md)
+1. Follow all instructions in [the template](.github/PULL_REQUEST_TEMPLATE.md)
 2. Follow the [styleguides](https://developers.cardano.org/docs/portal-style-guide/)
 3. After you submit your pull request, verify that all [status checks](https://help.github.com/articles/about-status-checks/) are passing <details><summary>What if the status checks are failing?</summary>If a status check is failing, and you believe that the failure is unrelated to your change, please leave a comment on the pull request explaining why you believe the failure is unrelated. A maintainer will re-run the status check for you. If we conclude that the failure was a false positive, then we will open an issue to track and resolve that problem.</details>
 

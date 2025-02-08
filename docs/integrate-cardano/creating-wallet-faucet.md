@@ -2,67 +2,67 @@
 id: creating-wallet-faucet
 title: Exploring Cardano wallets
 sidebar_label: Exploring Cardano wallets
-description: This article explains how you can create different kinds of Cardano Wallets and how you can recieve some tADA(test ADA) from the faucet.
-image: ./img/og-developer-portal.png
+description: This article explains how you can create different kinds of Cardano Wallets and how you can receive some tAda(test ada) from the faucet.
+image: /img/og/og-developer-portal.png
 --- 
 
 ### Overview 
 
-In this guide, we will show you how to create a **Cardano** wallet, receive some `tADA` (**test ADA**) in the `testnet` network and send basic example transactions. We will explore tools like `cardano-cli` and `cardano-wallet` on how they can help with these functionalities.
+In this guide, we will show you how to create a **Cardano** wallet, receive some `tAda` (**test ada**) on a [testnet network](docs/get-started/testnets-and-devnets.md) and send basic example transactions. We will explore tools like `cardano-cli` and `cardano-wallet` on how they can help with these functionalities.
 
 :::note
-This guide assumes you have installed `cardano-node` and `cardano-cli` into your system. If not you can refer to [Installing cardano-node](/docs/get-started/installing-cardano-node) guide for instructions on how to do that.
+This guide assumes you have installed `cardano-node` and `cardano-cli` into your system. If not you can refer to [Installing cardano-node](docs/get-started/cardano-node/installing-cardano-node.md) guide for instructions on how to do that.
 
-You must also connect your `cardano-node` to the `testnet` network and make sure it is fully synchronized.
+You must also connect your `cardano-node` to a testnet network and make sure it is fully synchronized.
 
-If you are not sure how to do that, It is recommended to read [Running cardano-node](/docs/get-started/running-cardano) guide before proceeding.
+If you are not sure how to do that, It is recommended to read [Running cardano-node](docs/get-started/cardano-node/running-cardano.md) guide before proceeding.
 :::
 
 ### Cardano Wallets 
 
-So you installed your `cardano-node` and got it running, you probably even tried to query some simple blockchain data (If you read [Running cardano-node](/docs/get-started/running-cardano) guide). But how do you actually create a **Cardano** wallet, receive and send some `ADA` or `tADA` tokens?
+So you installed your `cardano-node` and got it running, you probably even tried to query some simple blockchain data (If you read [Running cardano-node](/docs/get-started/cardano-node/running-cardano.md) guide). But how do you actually create a **Cardano** wallet, receive and send some `ada` or `tAda` tokens?
 
 First we have to look at the applications we can use to create wallets.
 
-- [Daedalus](https://daedaluswallet.io/) : **Daedalus Wallet** is the official **Cardano** full-node wallet, which is a [GUI (Graphical User Interface)](https://en.wikipedia.org/wiki/Graphical_user_interface) application for the Desktop (**Linux**, **MacOS**, **Windows**). That means that users will get to use a nice UI (User Interface), buttons and layout to interact with the **Cardano** blockchain.
+- [Daedalus](https://daedaluswallet.io/) : **Daedalus Wallet** is an example of a **Cardano** full-node wallet, which is a [GUI (Graphical User Interface)](https://en.wikipedia.org/wiki/Graphical_user_interface) application for the Desktop (**Linux**, **MacOS**, **Windows**). That means that users will get to use a nice UI (User Interface), buttons and layout to interact with the **Cardano** blockchain.
 
     A full-node wallet basically means that it has to synchronize and download the blockchain first before users are able to send transactions and interact with the wallet.
     
     It is open-source mainly being developed by [InputOutputGlobal](https://iohk.io/), the development company behind the **Cardano** protocol and also one of the three foundational entities of the **Cardano** project.
 
-- [Yoroi](https://yoroi-wallet.com/#/) : **Yoroi Wallet** is the official **Cardano** light-wallet, It is available as a **mobile application** and as a **browser extension**. 
+- [Yoroi](https://yoroi-wallet.com/#/) : **Yoroi Wallet** is an example of a **Cardano** light-wallet, It is available as a **mobile application** and as a **browser extension**. 
   
   A light-wallet means that users will not be forced to download the entire blockchain, Instead **Yoroi** has a backend server and downloads the blockchain data for the user without the user exposing sensitive data(**Private Keys**) to the server and ultimately maintaining security. This achieves a faster experience for the user due to the fact the user will not have to wait for hours before being able to use the wallet.
 
   It is open-source mainly being developed by [Emurgo](https://emurgo.io), A company based in [Japan](https://en.wikipedia.org/wiki/Japan) which focuses on Business and Enterprise adoption of the **Cardano** blockchain. It is also one of the three foundational entities of the **Cardano** project.
 
-- [cardano-wallet](https://github.com/input-output-hk/cardano-wallet) : `cardano-wallet` is a [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) application that provides **Cardano** wallet functionalities both via command-line parameters or via a [Web API](https://en.wikipedia.org/wiki/Web_API). 
+- [cardano-wallet](https://github.com/cardano-foundation/cardano-wallet) : `cardano-wallet` is a [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) application that provides **Cardano** wallet functionalities both via command-line parameters or via a [Web API](https://en.wikipedia.org/wiki/Web_API). 
 
  It is the wallet-backend that **Daedalus** wallet uses under-the-hood so it is also open-source, one of the many Haskell-based **Cardano** software components being written by [InputOutputGlobal](https://iohk.io/).
 
- You can find `cardano-wallet` **REST API** documentation here: [https://input-output-hk.github.io/cardano-wallet/api/edge/](https://input-output-hk.github.io/cardano-wallet/api/edge/)
+ You can find `cardano-wallet` **REST API** documentation here: [https://cardano-foundation.github.io/cardano-wallet/api/edge/](https://cardano-foundation.github.io/cardano-wallet/api/edge/)
 
-- [cardano-cli](https://github.com/input-output-hk/cardano-node) : `cardano-cli` is also a [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) application that provides **Cardano** wallet functionalities. But `cardano-cli` purpose is geared more towards general **Cardano** functionalities like generating **keys**, building and submitting **transactions**, managing **stake pools** certificates, simple blockchain queries like wallet address **UTXO** and more.
+- [cardano-cli](https://github.com/IntersectMBO/cardano-node) : `cardano-cli` is also a [CLI (Command Line Interface)](https://en.wikipedia.org/wiki/Command-line_interface) application that provides **Cardano** wallet functionalities. But `cardano-cli` purpose is geared more towards general **Cardano** functionalities like generating **keys**, building and submitting **transactions**, managing **stake pools** certificates, simple blockchain queries like wallet address **UTXO** and more.
 
-    It is part of the `cardano-node` project repository, so if you [compile and install](/docs/get-started/installing-cardano-node) `cardano-node` you should also have `cardano-cli` as-well. It is one of the many Haskell-based **Cardano** software components being written by [InputOutputGlobal](https://iohk.io/).
+    It is part of the `cardano-node` project repository, so if you [compile and install](docs/get-started/cardano-node/installing-cardano-node.md) `cardano-node` you should also have `cardano-cli` as-well. It is one of the many Haskell-based **Cardano** software components being written by [InputOutputGlobal](https://iohk.io/).
 
 :::warning
-Always download the wallets from official sources. There are many fake wallets, malicious software pretending to be **Cardano** wallets that could potentially steal your tokens / assets.
+Always download the wallets from trusted sources. There are many fake wallets, malicious software pretending to be **Cardano** wallets that could potentially steal your tokens / assets.
 :::
 
 ### Creating a wallet
 
-As mentioned before, in this guide we will only be focusing on the `cardano-cli` and `cardano-wallet` since they provide some level of programmability which is important when we are talking about **Cardano** integrations for different kinds of use-cases.
+As mentioned before, in this guide we will only be focusing on the `cardano-cli` and `cardano-wallet` since they provide some level of programmability which is important when we are talking about **Cardano** integrations for different kinds of use cases.
 
 
 #### Creating a wallet with `cardano-cli`
 
 :::note
-In this section, We will use the path `/home/user/cardano` to store all the `cardano-cli` related files as an example, please replace it with the directory you have choosen to store the files.
+In this section, We will use the path `$HOME/cardano` to store all the `cardano-cli` related files as an example, please replace it with the directory you have chosen to store the files.
 :::
 
 :::important
-Please make sure your `cardano-node` is connected and synchronized to the `testnet` network before proceeding.
+Please make sure your `cardano-node` is connected and synchronized to a testnet network before proceeding.
 :::
 
 :::warning
@@ -72,17 +72,17 @@ In a production environment, it might not be a good idea to store wallets / keys
 First, lets create a directory to store all our `keys` like so:
 
 ```bash
-mkdir -p /home/user/cardano/keys
+mkdir -p $HOME/cardano/keys
 ```
 
-Make sure we are inside the `keys` directory like so: `cd /home/user/cardano/keys`
+Make sure we are inside the `keys` directory like so: `cd $HOME/cardano/keys`
 
 Next, we generate our **payment key-pair** using `cardano-cli`:
 
 ```bash
 cardano-cli address key-gen \
---verification-key-file /home/user/cardano/keys/payment1.vkey \
---signing-key-file /home/user/cardano/keys/payment1.skey
+--verification-key-file $HOME/cardano/keys/payment1.vkey \
+--signing-key-file $HOME/cardano/keys/payment1.skey
 ```
 
 `cardano-cli address key-gen` : generates a **payment key-pair**.
@@ -94,7 +94,7 @@ cardano-cli address key-gen \
 You should now have two files in your `keys` directory like so: 
 
 ```bash
-/home/user/cardano/keys/
+$HOME/cardano/keys/
 ├── payment1.skey
 └── payment1.vkey
 
@@ -103,7 +103,7 @@ You should now have two files in your `keys` directory like so:
 
 Lets try to understand what these keys are used for in a very high-level overview that is relevant to our topic:
 
-- `.vkey` / **Public Verification Key** : Is used to derive a **Cardano** wallet address, a wallet address is basically the hash string value that you share to other users to provide them a way to send `ADA` / `tADA` or other assets in the **Cardano** blockchain into your wallet.
+- `.vkey` / **Public Verification Key** : Is used to derive a **Cardano** wallet address, a wallet address is basically the hash string value that you share to other users to provide them a way to send `ada` / `tAda` or other assets in the **Cardano** blockchain into your wallet.
 
     **The verification key file should look something like this**:
     ```json
@@ -125,12 +125,12 @@ Lets try to understand what these keys are used for in a very high-level overvie
     }
     ```
 
-Since we now have our **payment key-pair**, the next step would be to generate a **wallet address** for the `testnet` network like so:
+Since we now have our **payment key-pair**, the next step would be to generate a **wallet address** for a testnet network like so:
 
 ```bash
 cardano-cli address build \
---payment-verification-key-file /home/user/cardano/keys/payment1.vkey \
---out-file /home/user/cardano/keys/payment1.addr \
+--payment-verification-key-file $HOME/cardano/keys/payment1.vkey \
+--out-file $HOME/cardano/keys/payment1.addr \
 --testnet-magic 1097911063
 ```
 
@@ -145,7 +145,7 @@ cardano-cli address build \
 You should now have `payment1.vkey`, `payment1.skey` and `payment1.addr` in your `keys` directory. It should look something like this:
 
 ```bash
-/home/user/cardano/keys/
+$HOME/cardano/keys/
 ├── payment1.addr
 ├── payment1.skey
 └── payment1.vkey
@@ -160,13 +160,13 @@ addr_test1vz95zjvtwm9u9mc83uzsfj55tzwf99fgeyt3gmwm9gdw2xgwrvsa5
 ```
 
 :::note
- You can derive more than one **wallet address** from a **Public Verification Key** for more advanced use-cases using `cardano-addresses` component. Which we discuss in more details here: ***@TODO: link to article***
+ You can derive more than one **wallet address** from a **Public Verification Key** for more advanced use cases using `cardano-addresses` component. Which we discuss in more details here: ***@TODO: link to article***
 
-  - `mainnet` addresses are **prefixed** with the string value `addr1`. 
-  - `testnet` addresses are **prefixed** with the string value `addr_test1`. 
+  - Mainnet addresses are **prefixed** with the string value `addr1`. 
+  - testnet addresses are **prefixed** with the string value `addr_test1`. 
 
 
- If you want to create a wallet address to be used on `mainnet`, please use the `--mainnet` flag instead of `--testnet-magic 1097911063`. You can learn more about the different **Cardano** blockchain networks [here](/docs/get-started/running-cardano#mainnet--production).
+ If you want to create a wallet address to be used on `mainnet`, please use the `--mainnet` flag instead of `--testnet-magic 1097911063`. You can learn more about the different **Cardano** blockchain networks [here](docs/get-started/cardano-node/running-cardano.md#mainnet--production).
 :::
 
 #### Querying the wallet **UTXO (Unspent Transaction Output)** with `cardano-cli`
@@ -175,18 +175,15 @@ Now that we have a **wallet address**, we can then query the **UTXO** of the add
 
 ```bash
 cardano-cli query utxo \
---mary-era \
 --testnet-magic 1097911063 \
---address $(cat /home/user/cardano/keys/payment1.addr)
+--address $(cat $HOME/cardano/keys/payment1.addr)
 ```
 
 - `cardano-cli query utxo` : Queries the wallet address **UTXO**.
 
-- `--mary-era` : Specifies that we want to query using the **Mary Era** rules.
+- `--testnet-magic 1097911063` : Specifies that we want to query a testnet **Cardano** network.
 
-- `--testnet-magic 1097911063` : Specifies that we want to query the `testnet` **Cardano** network.
-
-- `--address $(cat /home/user/cardano/keys/payment1.addr)` : The **wallet address** string value that we want to query, In this case we read the contents of `/home/user/cardano/keys/payment1.addr` using the `cat` command and we pass that value to the `--address` flag. That means you could also directly paste the **wallet address** value like so: 
+- `--address $(cat $HOME/cardano/keys/payment1.addr)` : The **wallet address** string value that we want to query, In this case we read the contents of `$HOME/cardano/keys/payment1.addr` using the `cat` command and we pass that value to the `--address` flag. That means you could also directly paste the **wallet address** value like so: 
 ```
 --address addr_test1vz95zjvtwm9u9mc83uzsfj55tzwf99fgeyt3gmwm9gdw2xgwrvsa5
 ```
@@ -201,9 +198,9 @@ You should see something like this:
 
 Now you might find it odd that there is not much information in the result that was returned the command, but that is totally normal as there are no available **UTXO** in the specific **wallet address** that we have queried just yet as it is a new wallet.
 
-Our next step is to request some `tADA` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet).
+Our next step is to request some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet).
 
-Once you requested some `tADA` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) we can then run the query again and you should see something like this:
+Once you requested some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) we can then run the query again and you should see something like this:
 
 ```
                            TxHash                                 TxIx        Amount
@@ -211,16 +208,19 @@ Once you requested some `tADA` from the [Cardano Testnet Faucet](../integrate-ca
 cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85     0        1000000000 lovelace
 ```
 
-This result tells us that there is one **UTXO** with the amount of 1,000,000,000 `lovelaces` in our specific **wallet address**, that means our wallet has a balance of `1,000 tADA`. 
+This result tells us that there is one **UTXO** with the amount of 1,000,000,000 `lovelaces` in our specific **wallet address**, that means our wallet has a balance of `1,000 tAda`. 
 
 The result also specifies that the **UTXO** **transaction id** (`TxHash` / `TxId`) is `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85` with the **transaction index** of `0`.
 
 :::note
-In the **Cardano** blockchain, the `lovelace` is the unit used to represent `ADA` in **transactions** and **UTXO**. 
+In the **Cardano** blockchain, the `lovelace` is the unit used to represent `ada` in **transactions** and **UTXO**. 
 
-Where `1 ADA` is equal to `1,000,000 lovelace`, so moving forward we will be using `lovelace` instead of `ADA` / `tADA`.
+Where `1 ada` is equal to `1,000,000 lovelace`, so moving forward we will be using `lovelace` instead of `ada` / `tAda`.
 
-You can also use the `TxHash` to view the complete transaction via the **Cardano Blockchain Explorer** for the relevant network. You can check the specific transaction for the example **UTXO** here: [f3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85](https://explorer.cardano-testnet.iohkdev.io/en/transaction?id=cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85)
+You can also use the `TxHash` to view the complete transaction via the **Cardano Blockchain Explorer** for the relevant network. You can check the specific transaction for the example **UTXO** here: 
+- [testnet.cardanoscan.io](https://testnet.cardanoscan.io) is a Pre-Production and Preview block explorer by [Cardanoscan](https://cardanoscan.io).
+- [testnet.cexplorer.io](https://testnet.cexplorer.io/) is a Pre-Production and Preview block explorer by [Cexplorer](https://cexplorer.io).
+
 
 To learn more about **UTXO (unspent transaction output)** and how transactions work for the **UTXO Model**, we recommend watching this lecture by [Dr. Lars Brünjes](https://iohk.io/en/team/lars-brunjes), Education Director at [InputOutputGlobal](https://iohk.io).
 
@@ -235,22 +235,22 @@ To have a clearer understanding of how sending transactions work using `cardano-
 **Generate payment key-pair**
 ```bash
 cardano-cli address key-gen \
---verification-key-file /home/user/cardano/keys/payment2.vkey \
---signing-key-file /home/user/cardano/keys/payment2.skey 
+--verification-key-file $HOME/cardano/keys/payment2.vkey \
+--signing-key-file $HOME/cardano/keys/payment2.skey 
 ```
 
 **Generate wallet address**
 ```bash
 cardano-cli address build \
---payment-verification-key-file /home/user/cardano/keys/payment2.vkey \
---out-file /home/user/cardano/keys/payment2.addr \
+--payment-verification-key-file $HOME/cardano/keys/payment2.vkey \
+--out-file $HOME/cardano/keys/payment2.addr \
 --testnet-magic 1097911063
 ```
 
 Once complete you should have the following directory structure:
 
 ```bash
-/home/user/cardano/keys
+$HOME/cardano/keys
 ├── payment1.addr
 ├── payment1.skey
 ├── payment1.vkey
@@ -265,9 +265,8 @@ Querying the **UTXO** for the second wallet `payment2.addr` should give you a fa
 
 ```bash
 cardano-cli query utxo \
---mary-era \
 --testnet-magic 1097911063 \
---address $(cat /home/user/cardano/keys/payment2.addr)
+--address $(cat $HOME/cardano/keys/payment2.addr)
 ```
 
 **UTXO Result**
@@ -276,9 +275,9 @@ cardano-cli query utxo \
 --------------------------------------------------------------------------------------
 ```
 
-Again, this is to be expected as the `payment2.addr` wallet address and keys has just recently been generated. So we expect that no one has sent any `tADA` to this wallet yet.
+Again, this is to be expected as the `payment2.addr` wallet address and keys has just recently been generated. So we expect that no one has sent any `tAda` to this wallet yet.
 
-In this example, we now have two wallets. We can call them `payment1` and `payment2`. Now remember that we requested some `tADA` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) for `payment1` wallet, and thats how we have the following:
+In this example, we now have two wallets. We can call them `payment1` and `payment2`. Now remember that we requested some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) for `payment1` wallet, and thats how we have the following:
 
 `payment1` **wallet**: `1,000,000,000 lovelace`
 
@@ -304,8 +303,7 @@ We start by storing the current on-chain protocol parameters to a **JSON** file:
 ```bash
 cardano-cli query protocol-parameters \
   --testnet-magic 1097911063 \
-  --mary-era \
-  --out-file /home/user/cardano/protocol.json
+  --out-file $HOME/cardano/protocol.json
 ```
 This will produce a **JSON** file that looks something like this:
 ```json
@@ -341,18 +339,17 @@ This will produce a **JSON** file that looks something like this:
 Next, we create a draft transaction like so:
 
 ```bash
-cardano-cli transaction build-raw \
+cardano-cli conway transaction build-raw \
 --tx-in cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85#0 \
---tx-out $(cat /home/user/cardano/keys/payment2.addr)+0 \
---tx-out $(cat /home/user/cardano/keys/payment1.addr)+0 \
---mary-era \
+--tx-out $(cat $HOME/cardano/keys/payment2.addr)+0 \
+--tx-out $(cat $HOME/cardano/keys/payment1.addr)+0 \
 --fee 0 \
---out-file /home/user/cardano/tx.draft
+--out-file $HOME/cardano/tx.draft
 ```
 
-`cardano-cli transaction build-raw` : This tells `cardano-cli` to build a raw transaction.
+`cardano-cli conway transaction build-raw` : This tells `cardano-cli` to build a raw transaction.
 
-`--tx-in` : This specifices the **UTXO** input that the transaction will use, you can add as many **UTXO** input as you want by adding multiple `--tx-in` in the `cardano-cli` arguments as long as they have a unique `TxHash` and `TxIdx` within all your inputs.
+`--tx-in` : This specifies the **UTXO** input that the transaction will use, you can add as many **UTXO** input as you want by adding multiple `--tx-in` in the `cardano-cli` arguments as long as they have a unique `TxHash` and `TxIdx` within all your inputs.
 
 `--tx-out` : This specifies the target **wallet address**, **assets** and **quantity** to be sent to. You can add as many **UTXO** outputs as you want as long as the total **UTXO** input can satisfy the **assets** and **quantity** specified by the output.
 
@@ -363,13 +360,13 @@ cardano-cli transaction build-raw \
 In this case, we are just building a draft transaction to calculate how much fee would the transaction need. We can do that by executing the following command: 
 
 ```bash
-cardano-cli transaction calculate-min-fee \
---tx-body-file /home/user/cardano/tx.draft \
+cardano-cli conway transaction calculate-min-fee \
+--tx-body-file $HOME/cardano/tx.draft \
 --tx-in-count 1 \
 --tx-out-count 2 \
 --witness-count 1 \
 --testnet-magic 1097911063 \
---protocol-params-file /home/user/cardano/protocol.json
+--protocol-params-file $HOME/cardano/protocol.json
 ```
 
 You should see something like this for the output: 
@@ -380,7 +377,7 @@ You should see something like this for the output:
 
 You will notice that we use the `protocol.json` we queried awhile ago to calculate the transaction fee:
 ```
---protocol-params-file /home/user/cardano/protocol.json
+--protocol-params-file $HOME/cardano/protocol.json
 ```
 
 That is because the transaction fee calculation results changes depending on the on-chain protocol parameters.
@@ -390,13 +387,12 @@ The `--witness-count 1` basically tells `cardano-cli` that there will be only `1
 We can then finally build the real transaction like so:
 
 ```bash
-cardano-cli transaction build-raw \
+cardano-cli conway transaction build-raw \
 --tx-in cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85#0 \
---tx-out $(cat /home/user/cardano/keys/payment2.addr)+250000000 \
---tx-out $(cat /home/user/cardano/keys/payment1.addr)+749825831 \
---mary-era \
+--tx-out $(cat $HOME/cardano/keys/payment2.addr)+250000000 \
+--tx-out $(cat $HOME/cardano/keys/payment1.addr)+749825831 \
 --fee 174169 \
---out-file /home/user/cardano/tx.draft
+--out-file $HOME/cardano/tx.draft
 ```
 
 To recap, We want to send `250,000,000 lovelace` from `payment1` wallet to `payment2` wallet. Our `payment1` wallet had the following **UTXO**:
@@ -407,7 +403,7 @@ To recap, We want to send `250,000,000 lovelace` from `payment1` wallet to `paym
 cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85     0        1000000000 lovelace
 ```
 
-So we will use the `TxHash` `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85` and `TxId` `0` as our `--tx-input`. 
+So we will use the `TxHash` `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85` and `TxIx` `0` as our `--tx-input`. 
 
 ```bash
 --tx-in cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f907280f02f577cf85#0
@@ -416,13 +412,13 @@ So we will use the `TxHash` `cf3cf4850c8862f2d698b2ece926578b3815795c9e38d2f9072
 We then tell `cardano-cli` that the destination of the `250,000,000 lovelace` is the **wallet address** of `payment2`.
 
 ```bash
---tx-out $(cat /home/user/cardano/keys/payment2.addr)+250000000
+--tx-out $(cat $HOME/cardano/keys/payment2.addr)+250000000
 ```
 
 Now, we still have `750000000 lovelace` as the change amount, so we will simply send it back to ourselves like so:
 
 ```bash
---tx-out $(cat /home/user/cardano/keys/payment1.addr)+749825831
+--tx-out $(cat $HOME/cardano/keys/payment1.addr)+749825831
 ```
 
 Now an important question you might ask here is that, why is the amount `749825831 lovelace`? Well remember that we calculated the fee to be `174169 lovelace` and someone has to shoulder the transaction fee, so we decide that `payment` should pay for the fee with the change `lovelace` amount. So we calculate that `750000000 - 174169 = 749825831` and so the total change would be `749825831 lovelace`.
@@ -436,26 +432,26 @@ We then specify the transaction fee like so:
 And then we specify where we will save the transaction file:
 
 ```
---out-file /home/user/cardano/tx.draft
+--out-file $HOME/cardano/tx.draft
 ```
 
 Now that we have the transaction file, we must sign the transaction in-order to prove that we are the owner of the input **UTXO** that was used.
 
 ```bash
-cardano-cli transaction sign \
---tx-body-file /home/user/cardano/tx.draft \
---signing-key-file /home/user/cardano/keys/payment1.skey \
+cardano-cli conway transaction sign \
+--tx-body-file $HOME/cardano/tx.draft \
+--signing-key-file $HOME/cardano/keys/payment1.skey \
 --testnet-magic 1097911063 \
---out-file /home/user/cardano/tx.signed
+--out-file $HOME/cardano/tx.signed
 ```
 
-`--signing-key-file /home/user/cardano/keys/payment1.skey` : This argument tells the `cardano-cli` that we will use `payment1.skey` to sign the transaction.
+`--signing-key-file $HOME/cardano/keys/payment1.skey` : This argument tells the `cardano-cli` that we will use `payment1.skey` to sign the transaction.
 
 Finally, we submit the transaction to the blockchain!
 
 ```bash
-cardano-cli transaction submit \
---tx-file /home/user/cardano/tx.signed \
+cardano-cli conway transaction submit \
+--tx-file $HOME/cardano/tx.signed \
 --testnet-magic 1097911063 
 ```
 :::important
@@ -466,14 +462,14 @@ Checking the balances of both wallets `payment1` and `payment2`:
 
 ```bash
 # payment1 wallet UTXO
-❯ cardano-cli query utxo --mary-era --testnet-magic 1097911063 --address $(cat ~/cardano/keys/payment1.addr)
+❯ cardano-cli query utxo --testnet-magic 1097911063 --address $(cat $HOME/cardano/keys/payment1.addr)
 
                            TxHash                                 TxIx        Amount
 --------------------------------------------------------------------------------------
 63eeeb7e43171aeea0b3d53c5a36236cf9af92d5ee39e99bfadfe0237c46bd91     1        749825303 lovelace
 
 # payment2 wallet UTXO
-❯ cardano-cli query utxo --mary-era --testnet-magic 1097911063 --address $(cat ~/cardano/keys/payment2.addr)
+❯ cardano-cli query utxo --testnet-magic 1097911063 --address $(cat $HOME/cardano/keys/payment2.addr)
                            TxHash                                 TxIx        Amount
 --------------------------------------------------------------------------------------
 63eeeb7e43171aeea0b3d53c5a36236cf9af92d5ee39e99bfadfe0237c46bd91     0        250000000 lovelace
@@ -486,13 +482,13 @@ Congratulations, You have created and sent your first **Cardano** transaction us
 #### Creating a wallet with `cardano-wallet`
 
 :::note
-This guide assumes you have installed `cardano-wallet` into your system. If not you can refer to [Installing cardano-wallet](/docs/get-started/installing-cardano-wallet) guide for instructions on how to do that.
+This guide assumes you have installed `cardano-wallet` into your system. If not you can refer to [Installing cardano-wallet](docs/get-started/cardano-wallet/installing-cardano-wallet.md) guide for instructions on how to do that.
 
-We will use the path `/home/user/cardano/wallets` to store all the `cardano-wallet` related files as an example, please replace it with the directory you have choosen to store the files.
+We will use the path `$HOME/cardano/wallets` to store all the `cardano-wallet` related files as an example, please replace it with the directory you have chosen to store the files.
 :::
 
 :::important
-Please make sure your `cardano-node` is connected and synchronized to the `testnet` network before proceeding.
+Please make sure your `cardano-node` is connected and synchronized to a testnet network before proceeding.
 :::
 
 :::warning
@@ -502,7 +498,7 @@ In a production environment, it might not be a good idea to store wallets / keys
 First, lets create a directory to store all our `wallets` like so:
 
 ```bash
-mkdir -p /home/user/cardano/wallets
+mkdir -p $HOME/cardano/wallets
 ```
 
 **Starting cardano-wallet as a REST API server**
@@ -512,8 +508,8 @@ We will be focusing on the [REST API](https://en.wikipedia.org/wiki/Representati
 ```bash
 cardano-wallet serve \
 --port 1337 \
---testnet /home/user/cardano/testnet-byron-genesis.json \
---database /home/user/cardano/wallets/db \
+--testnet $HOME/cardano/testnet-byron-genesis.json \
+--database $HOME/cardano/wallets/db \
 --node-socket $CARDANO_NODE_SOCKET_PATH
 ```
 
@@ -521,9 +517,9 @@ cardano-wallet serve \
 
 `--port` : Specifies the port that the web server will listen to for any requests.
 
-> You can choose whatever `port` number you like, but it is recommended to use `port` numbers `1024` and above. See [Registered Port](https://www.sciencedirect.com/topics/computer-science/registered-port) for more information.
+> You can choose whatever `port` number you like, but it is recommended to use `port` numbers `1024` and above. See [Registered Port](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml) for more information.
 
-`--testnet` : Specifies the **Byron** genesis file path for the `testnet` network.
+`--testnet` : Specifies the **Byron** genesis file path for the testnet network.
 
 > This should match the genesis file that the `cardano-node` you are connected is using as-well. If you meant to connect to `mainnet` then use the `--mainnet` flag and the `mainnet` **Byron** genesis file instead.
 
@@ -537,7 +533,7 @@ cardano-wallet serve \
 > 
 > Here is an example `--socket-path` argument for **Linux**:
 ```
---socket-path /home/user/cardano/db/node.socket
+--socket-path $HOME/cardano/db/node.socket
 ```
 > As you can see the argument points to a file since **unix sockets** are represented as files (like everything else in **Linux**). In this case we put the socket file in the `db` directory that we have just created before.
 > 
@@ -547,7 +543,7 @@ cardano-wallet serve \
 ```
 > As you notice its almost like a network `URI` or a network `Path` than a file, this is a key difference that you will have to be aware depending on your operating system. You can replace the string `cardano-node-testnet` in the argument to whatever you like, this example path in particular is used in the [Daedalus Testnet Wallet](https://daedaluswallet.io) for **Windows**.
 
-Once the server is running you should see sometihng like this (among other things): 
+Once the server is running you should see something like this (among other things): 
 
 ```
 [cardano-wallet.network:Info:12] [2021-06-03 13:48:24.82 UTC] Protocol parameters for tip are:
@@ -576,8 +572,7 @@ Slotting parameters for tip are:
 The first thing we can do to test if the wallet server is working correctly is to query the network information via the API.
 
 ```bash
-curl --request GET \
-  --url http://localhost:1337/v2/network/information | jq
+curl --url http://localhost:1337/v2/network/information | jq
 ```
 
 The result should be something like this: 
@@ -618,13 +613,13 @@ It is important to make sure that the `sync_progress.status` is equal to `ready`
 To create a wallet we must first generate a wallet **recovery phrase** using the `cardano-wallet` in the CLI.
 
 ```bash
-cardano-wallet recovery-phrase generate
+cardano-wallet recovery-phrase generate | jq -c --raw-input 'split(" ")'
 ```
 
 You should get a **24-word mnemonic seed** in return similar to this: 
 
 ```
-kit soup various toe cloud humor clip radio medal ladder casino sock various distance staff analyst success trade deal split leaf away pair camp
+["shift", "badge", "heavy", "action", "tube", "divide", "course", "quality", "capable", "velvet", "cart", "marriage", "vague", "aware", "maximum", "exist", "crime", "file", "analyst", "great", "cabbage", "course", "sad", "apology"]
 ```
 
 We can now create a **Cardano** wallet using the `/v2/wallets` API endpoint:
@@ -640,23 +635,15 @@ curl --request POST \
 }' | jq
 ```
 
-Our requests payload data looks like this:
-
-```json
-{
-	"name": "test2",
-	"mnemonic_sentence": ["kit", "soup", "various", "toe", "cloud", "humor", "clip", "radio", "medal", "ladder", "casino", "sock", "various", "distance", "staff", "analyst", "success", "trade", "deal", "split", "leaf", "away", "pair", "camp"],
-	"passphrase": "test123456"
-}
-```
+Our requests payload data is composed of:
 
 `name` : The name of the wallet.
 
-`passphrase` : Sets the security phrase to protect the funds inside the wallet. It will be required everytime you need write access to the wallet, more specifically sending assets.
+`passphrase` : Sets the security phrase to protect the funds inside the wallet. It will be required every time you need write access to the wallet, more specifically sending assets.
 
 `mnemonic_sentence` : This is the wallet **recovery phrase** formatted into a `JSON` array.
 
-If succesful, you should see something like this: 
+If successful, you should see something like this: 
 
 ```json
 {
@@ -713,10 +700,10 @@ If succesful, you should see something like this:
 Initially, the newly created/restored wallet will need to be synced before it can be used. You can verify if the wallet is already synced by executing the following request:
 
 ```bash
-curl --request GET   --url http://localhost:1337/v2/wallets/c4d4e240d499cce3fed8fd885491803885fdf323 | jq '.state'
+curl --url http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce | jq '.state'
 ```
 
-***It is important to note that the `c4d4e240d499cce3fed8fd885491803885fdf323` string is actually the `wallet.id` of the previously generated wallet.***
+***It is important to note that the `5076b34c6949dbd150eb9c39039037543946bdce` string is actually the `wallet.id` of the previously generated wallet.***
 
 You should see something like this:
 
@@ -726,15 +713,14 @@ You should see something like this:
 }
 ```
 
-**Receiving tADA (Test ADA)**
+**Receiving tAda (test ada)**
 
-Now that we have created a wallet, we can now request some tADA from the **Testnet Faucet**. But before we can do that we must first get a cardano address for our wallet.
+Now that we have created a wallet, we can now request some tAda from the **Testnet Faucet**. But before we can do that we must first get a cardano address for our wallet.
 
 We can do that by executing the command:
 
 ```bash
-curl --request GET \
-  --url 'http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce/addresses?state=unused' | jq '.[0]'
+curl --url 'http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce/addresses?state=unused' | jq '.[0]'
 ```
 
 The result should be something like this:
@@ -754,15 +740,14 @@ The result should be something like this:
 ```
 It is important to note that the parameter of this request is the **wallet id** of the target wallet you want to get the address. In this case it is `5076b34c6949dbd150eb9c39039037543946bdce` our previously generated wallet.
 
-We are basically querying the first wallet address that has not been used just yet, Indicated by `state: "unused"`. As we can see the wallet address value is: `addr_test1qpnjt8umuwr5f2y59avklhu8hd7h2uf4zfanxxr4nmqqsaw679hxgdmrtsjequ8ka27rm8366e6p7au9y89h6slmrjwskfmcef`
+We are basically querying the first wallet address that has not been used just yet, Indicated by `state: "unused"`. As we can see the wallet address value is: `addr_test1qzf9q3qjcaf6kxshwjfw9ge29njtm56r2a08g49l79xgt4je0592agqpwraqajx2dsu2sxj64uese5s4qum293wuc00q7j6vsp"`
 
-Now we can finally request some `tADA` for the wallet address from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet).
+Now we can finally request some `tAda` for the wallet address from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet).
 
-Once you requested some `tADA` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet), we can then check if it has arrived into our wallet like so:
+Once you requested some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet), we can then check if it has arrived into our wallet like so:
 
 ```bash
-curl --request GET \
-  --url http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce | jq '.balance'
+curl --url http://localhost:1337/v2/wallets/5076b34c6949dbd150eb9c39039037543946bdce | jq '.balance'
 ```
 
 You should see something like this:
@@ -793,13 +778,14 @@ To have a clearer understanding of how sending transactions work using `cardano-
 **Generate recovery-phrase**
 
 ```bash
-cardano-wallet recovery-phrase generate
+cardano-wallet recovery-phrase generate | jq -c --raw-input 'split(" ")'
 ```
 **Recovery-phrase result**
 
 ```
-then tattoo copy glance silk kitchen kingdom pioneer off path connect artwork alley smooth also foil glare trouble erupt move position merge scale echo
+["then", "tattoo", "copy", "glance", "silk", "kitchen", "kingdom", "pioneer", "off", "path", "connect", "artwork", "alley", "smooth", "also", "foil", "glare", "trouble", "erupt", "move", "position", "merge", "scale", "echo"]
 ```
+
 **Create Wallet Request**
 ```bash
 curl --request POST \
@@ -871,13 +857,12 @@ We now have the following wallets:
 | WalletId                                        | Wallet Name       | Balance(Lovelace)     |
 | --------                                        | ---------         | ----------            |
 | 5076b34c6949dbd150eb9c39039037543946bdce        | test_cf_1         | 1000000000            |
-| 4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb        | test_cf_2         | 0                     | 
+| 4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb        | test_cf_2         | 0                     |
 
 Now let's say that we want to send `250,000,000 lovelaces` to `test_cf_2` wallet. Well first we have to get `test_cf_2` wallet address like so:
 
 ```bash
-curl --request GET \
-  --url 'http://localhost:1337/v2/wallets/4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb/addresses?state=unused' | jq '.[0]'
+curl --url 'http://localhost:1337/v2/wallets/4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb/addresses?state=unused' | jq '.[0]'
 ```
 
 and we should see something like this:
@@ -896,7 +881,7 @@ and we should see something like this:
 }
 ```
 
-So now that we have `test_cf_2` wallet address `addr_test1qzyfnjk3zmgzmvnnvnpeguv6se2ptjj3w3uuh30llqe5xdtzdduxxvke8rekwukyn0qt9g5pahasrnrdmv7nr86x537qxdgza0`. We can now use it to send some `tADA` to it from `test_cf_1` wallet like so:
+So now that we have `test_cf_2` wallet address `addr_test1qzyfnjk3zmgzmvnnvnpeguv6se2ptjj3w3uuh30llqe5xdtzdduxxvke8rekwukyn0qt9g5pahasrnrdmv7nr86x537qxdgza0`. We can now use it to send some `tAda` to it from `test_cf_1` wallet like so:
 
 ```bash
 curl --request POST \
@@ -923,11 +908,10 @@ Remember, we use the `test_cf_1` wallet id in the `http://localhost:1337/v2/wall
 Now we can check `test_cf_2` wallet balance like so:
 
 ```bash
-curl --request GET \
-  --url http://localhost:1337/v2/wallets/4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb | jq '.balance'
+curl --url http://localhost:1337/v2/wallets/4a64b453ad1c1d33bfec4d3ba90bd2456ede35bb | jq '.balance'
 ```
 
-And we should see that indeed the `250,000,000 tADA` has been received (***you might need to wait for a few seconds***).
+And we should see that indeed the `250,000,000 tAda` has been received (***you might need to wait for a few seconds***).
 
 ```json
 {
@@ -981,7 +965,7 @@ It is important to note that `cardano-wallet` has automatically determined the f
 
 :::tip
 
-Full documentation of the `cardano-wallet` [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) can be found here: [https://input-output-hk.github.io/cardano-wallet/api/edge](https://input-output-hk.github.io/cardano-wallet/api/edge)
+Full documentation of the `cardano-wallet` [REST API](https://en.wikipedia.org/wiki/Representational_state_transfer) can be found here: [https://cardano-foundation.github.io/cardano-wallet/api/edge](https://cardano-foundation.github.io/cardano-wallet/api/edge)
 
 :::
 

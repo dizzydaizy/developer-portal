@@ -6,6 +6,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
 import PortalHero from "./portalhero";
+import OpenStickyButton from "../components/buttons/openStickyButton";
 
 const features = [
   {
@@ -63,13 +64,13 @@ const features = [
     ),
   },
   {
-    title: "Fund your Project",
-    imageUrl: "img/card-fund-your-project.svg",
-    targetUrl: "docs/fund-your-project/",
+    title: "Participate in Governance",
+    imageUrl: "img/card-governance.svg",
+    targetUrl: "docs/governance/",
     description: (
       <>
-        Understand Project Catalyst and how you can use it to fund your projects
-        if you build on Cardano.
+        Governance is an essential topic that includes Cardano Improvement Proposals (CIP), 
+        project funding, voting, and network parameters.
       </>
     ),
   },
@@ -90,7 +91,7 @@ function Feature({ imageUrl, title, description, targetUrl }) {
   const imgUrl = useBaseUrl(imageUrl); // not used right now
   const trgUrl = useBaseUrl(targetUrl);
   return (
-    <div className={clsx("col col--4", styles.feature)}>
+    <div className={clsx("col col--4", styles.featurePadding)}>
       {targetUrl && (
         <Link className="navbar__link" to={trgUrl}>
           <div className="card">
@@ -140,6 +141,7 @@ function Home() {
           </section>
         )}
       </main>
+      <OpenStickyButton/>
     </Layout>
   );
 }

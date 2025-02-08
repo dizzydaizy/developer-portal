@@ -3,7 +3,7 @@ id: minting
 title: Minting Native Assets
 sidebar_label: Minting Native Assets
 description: How to mint native tokens on Cardano. 
-image: ./img/og-developer-portal.png
+image: /img/og/og-developer-portal.png
 ---
 
 In this section, we will be minting native assets - **not NFTs**. 
@@ -83,39 +83,53 @@ The variable needs to hold the absolute path to the socket file of your running 
 If you're unsure or do not know where to find your socket path, please check the command on how you start/run your Cardano node.  
 For example - if you start your node with this command
 ```bash
-/home/user/.local/bin/cardano-node run \
+$HOME/.local/bin/cardano-node run \
  --topology config/testnet-topology.json \
  --database-path db \
- --socket-path /home/user/TESTNET_NODE/socket/node.socket \
+ --socket-path $HOME/TESTNET_NODE/socket/node.socket \
  --port 3001 \
  --config config/testnet-config.json
 ```
 You need to set the variable to the corresponding path of the `--socket-path` parameter:
 
 ```bash
-export CARDANO_NODE_SOCKET_PATH="/home/user/TESTNET_NODE/socket/node.socket"
+export CARDANO_NODE_SOCKET_PATH="$HOME/TESTNET_NODE/socket/node.socket"
 ```
 You need to adjust the path on your setup and your socket path accordingly.
 
 ### Improve readability
-Since we've already answered all of the questions above, we will set variables on our terminal/bash to make readability a bit easier.
-We also will be using the testnet. The only difference between minting native assets in the mainnet will be that you need to substitute the network variable <i>testnet</i> with mainnet.
+Since we've already answered all of the questions above, we will set variables on our terminal/bash to make readability a bit easier. First, we will specify a [testnet](docs/get-started/testnets-and-devnets.md), either Pre-production:
 ```bash
-testnet="testnet-magic 1097911063"
-tokenname1="Testtoken"
-tokenname2="SecondTesttoken"
+testnet="--testnet-magic 1"
+```
+
+... or Preview:
+```bash
+testnet="--testnet-magic 2"
+```
+
+:::note
+When minting native assets on Mainnet, the only difference will be to use the option `--mainnet` instead of `--testnet-magic <testnetID>`.
+:::
+
+**Since cardano-cli version 1.31.0, token names must be base16 encoded**, so here we use the `xxd` tool to encode the token names:
+
+```bash
+tokenname1=$(echo -n "Testtoken" | xxd -ps | tr -d '\n')
+tokenname2=$(echo -n "SecondTesttoken" | xxd -ps | tr -d '\n')
 tokenamount="10000000"
 output="0"
 ```
 
-We will be using this technique of setting variables along the way to make it easier to follow along.
-
 ### Check your node status
 
-We also want to check if our Node is up to date. To do that, we check the current epoch/block and compare it to the current value displayed in the [Cardano Explorer for the testnet](https://explorer.cardano-testnet.iohkdev.io/en).
+We also want to check if our Node is up to date. To do that, we check the current epoch/block and compare it to the current value displayed in one of the Cardano Testnet Explorers:
+[https://preprod.cardanoscan.io/](https://preprod.cardanoscan.io/)
+[https://preview.cardanoscan.io/](https://preview.cardanoscan.io/)
+
 
 ```bash
-cardano-cli query tip --$testnet
+cardano-cli query tip $testnet
 ```
 
 Should give you an output like this
@@ -129,7 +143,10 @@ Should give you an output like this
 }
 ```
 
-Epoch and slot number should match when being compared to the Cardano [Explorer for testnet](https://explorer.cardano-testnet.iohkdev.io/en)
+Epoch and slot number should match when being compared to the data shown by Cardano Testnet explorers like
+- [testnet.cardanoscan.io](https://testnet.cardanoscan.io) is a Pre-Production and Preview block explorer by [Cardanoscan](https://cardanoscan.io).
+- [testnet.cexplorer.io](https://testnet.cexplorer.io/) is a Pre-Production and Preview block explorer by [Cexplorer](https://cexplorer.io).
+
 
 ![img](../../static/img/nfts/cardano_explorer_testnet.png)
 
@@ -155,7 +172,7 @@ cardano-cli address key-gen --verification-key-file payment.vkey --signing-key-f
 Those two keys can now be used to generate an address.
 
 ```bash
-cardano-cli address build --payment-verification-key-file payment.vkey --out-file payment.addr --$testnet
+cardano-cli address build --payment-verification-key-file payment.vkey --out-file payment.addr $testnet
 ```
 
 We will save our address hash in a variable called `address`.
@@ -165,17 +182,17 @@ address=$(cat payment.addr)
 ```
 ### Fund the address
 
-Submitting transactions always require you to pay a fee. Sending native assets requires also requires sending at least 1 ada.  
+Submitting transactions always require you to pay a fee. Sending native assets also requires sending at least 1 ada.  
 So make sure the address you are going to use as the input for the minting transaction has sufficient funds. 
 
-For the **testnet**, you can request funds through the [testnet faucet](../integrate-cardano/testnet-faucet).
+For **testnets**, you can request funds through the [Testnet Faucet](../integrate-cardano/testnet-faucet).
 
 ### Export protocol parameters
 
 For our transaction calculations, we need some of the current protocol parameters. The parameters can be saved in a file called <i>protocol.json</i> with this command:
 
 ```bash
-cardano-cli query protocol-parameters --$testnet --out-file protocol.json
+cardano-cli query protocol-parameters $testnet --out-file protocol.json
 ```
 
 ## Minting native assets
@@ -184,7 +201,7 @@ cardano-cli query protocol-parameters --$testnet --out-file protocol.json
 
 Policies are the defining factor under which tokens can be minted. Only those in possession of the policy keys can mint or burn tokens minted under this specific policy.
 We'll make a separate sub-directory in our work directory to keep everything policy-wise separated and more organized.
-For further reading, please check [the official docs](https://docs.cardano.org/native-tokens/getting-started/#tokenmintingpolicies) or the [github page about multi-signature scripts](https://github.com/input-output-hk/cardano-node/blob/c6b574229f76627a058a7e559599d2fc3f40575d/doc/reference/simple-scripts.md).
+For further reading, please check [the official docs](https://docs.cardano.org/native-tokens/getting-started/#tokenmintingpolicies) or the [github page about multi-signature scripts](https://github.com/IntersectMBO/cardano-node/blob/c6b574229f76627a058a7e559599d2fc3f40575d/doc/reference/simple-scripts.md).
 
 ```bash
 mkdir policy
@@ -203,16 +220,10 @@ cardano-cli address key-gen \
     --signing-key-file policy/policy.skey
 ```
 
-Create a `policy.script` file and fill it with an empty string.
+Use the `echo` command to create a `policy.script` (the first line uses `>` instead of `>>`, to create the file if not present and clear any existing contents):
 
 ```bash
-touch policy/policy.script && echo "" > policy/policy.script
-```
-
-Use the `echo` command to populate the file:
-
-```bash
-echo "{" >> policy/policy.script 
+echo "{" > policy/policy.script 
 echo "  \"keyHash\": \"$(cardano-cli address key-hash --payment-verification-key-file policy/policy.vkey)\"," >> policy/policy.script 
 echo "  \"type\": \"sig\"" >> policy/policy.script 
 echo "}" >> policy/policy.script
@@ -228,7 +239,7 @@ We now have a simple script file that defines the policy verification key as a w
 To mint the native assets, we need to generate the policy ID from the script file we created.
 
 ```bash
-cardano-cli transaction policyid --script-file ./policy/policy.script >> policy/policyID
+cardano-cli conway transaction policyid --script-file ./policy/policy.script > policy/policyID
 ```
 
 The output gets saved to the file `policyID` as we need to reference it later on.
@@ -255,7 +266,7 @@ Before we start, we will again need some setup to make the transaction building 
 First, query your payment address and take note of the different values present.
 
 ```bash
-cardano-cli query utxo --address $address --$testnet
+cardano-cli query utxo --address $address $testnet
 ```
 
 Your output should look something like this (fictional example):
@@ -293,14 +304,30 @@ Now we are ready to build the first transaction to calculate our fee and save it
 We will reference the variables in our transaction to improve readability because we saved almost all of the needed values in variables.
 This is what our transaction looks like:
 ```bash
-cardano-cli transaction build-raw \
+cardano-cli conway transaction build-raw \
  --fee $fee \
  --tx-in $txhash#$txix \
  --tx-out $address+$output+"$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
- --mint="$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
+ --mint "$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
  --minting-script-file policy/policy.script \
  --out-file matx.raw
 ```
+
+:::note 
+In later versions of cardano-cli (at least from >1.31.0) <b>the tokennames must be base16 encoded or you will receive an error</b>
+```bash
+option --tx-out: 
+unexpected 'T'
+expecting alphanumeric asset name, white space, "+" or end of input
+```
+
+You can fix this by redefining the tokennames. In this tutorial the equivalent base16 token names are:
+```bash
+tokenname1="54657374746F6B656E"
+tokenname2="5365636F6E6454657374746F6B656E"
+```
+:::
+
 #### Syntax breakdown 
 Here's a breakdown of the syntax as to which parameters we define in our minting transaction:
 ```bash
@@ -335,7 +362,7 @@ The syntax is very important, so here it is word for word. There are no spaces u
 :::
 
 ```bash
---mint="$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
+--mint "$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
 ```
 Again, the same syntax as specified in <i>--tx-out</i> but without the address and output.
 
@@ -348,24 +375,24 @@ Just be sure to reference the correct filename in upcoming commands. I chose to 
 Based on this raw transaction we can calculate the minimal transaction fee and store it in the variable <i>$fee</i>. We get a bit fancy here and only store the value so we can use the variable for terminal based calculations:
 
 ```bash
-fee=$(cardano-cli transaction calculate-min-fee --tx-body-file matx.raw --tx-in-count 1 --tx-out-count 1 --witness-count 1 --$testnet --protocol-params-file protocol.json | cut -d " " -f1)
+fee=$(cardano-cli conway transaction calculate-min-fee --tx-body-file matx.raw --tx-in-count 1 --tx-out-count 1 --witness-count 2 $testnet --protocol-params-file protocol.json | cut -d " " -f1)
 ```
 
 Remember, the transaction input and the output of ada must be equal, or otherwise, the transaction will fail. There can be no leftovers.
-To calculate the remaining output wee need to subtract the fee from our funds and save the result in our output variable.
+To calculate the remaining output we need to subtract the fee from our funds and save the result in our output variable.
 
 ```bash
 output=$(expr $funds - $fee)
 ```
 
-We now have every value we need to re-build the transaction, ready to be signed. So we reissue the same command to re-buld, the only difference being our variables now holding the correct values.
+We now have every value we need to re-build the transaction, ready to be signed. So we reissue the same command to re-build, the only difference being our variables now holding the correct values.
 
 ```bash
-cardano-cli transaction build-raw \
+cardano-cli conway transaction build-raw \
 --fee $fee  \
 --tx-in $txhash#$txix  \
 --tx-out $address+$output+"$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
---mint="$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
+--mint "$tokenamount $policyid.$tokenname1 + $tokenamount $policyid.$tokenname2" \
 --minting-script-file policy/policy.script \
 --out-file matx.raw
 ```
@@ -373,10 +400,10 @@ cardano-cli transaction build-raw \
 Transactions need to be signed to prove the authenticity and ownership of the policy key.
 
 ```bash
-cardano-cli transaction sign  \
+cardano-cli conway transaction sign  \
 --signing-key-file payment.skey  \
 --signing-key-file policy/policy.skey  \
---$testnet --tx-body-file matx.raw  \
+$testnet --tx-body-file matx.raw  \
 --out-file matx.signed
 ```
 
@@ -385,13 +412,13 @@ cardano-cli transaction sign  \
 
 Now we are going to submit the transaction, therefore minting our native assets:
 ```bash
-cardano-cli transaction submit --tx-file matx.signed --$testnet
+cardano-cli conway transaction submit --tx-file matx.signed $testnet
 ```
 
 Congratulations, we have now successfully minted our own token.
 After a couple of seconds, we can check the output address
 ```bash
-cardano-cli query utxo --address $address --$testnet
+cardano-cli query utxo --address $address $testnet
 ```
 
 and should see something like this (fictional example):
@@ -399,7 +426,7 @@ and should see something like this (fictional example):
 ```bash
                            TxHash                                 TxIx        Amount
 --------------------------------------------------------------------------------------
-d82e82776b3588c1a2c75245a20a9703f971145d1ca9fba4ad11f50803a43190     0        999824071 lovelace + 10000000 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.SecondTesttoken + 10000000 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.Testtoken
+d82e82776b3588c1a2c75245a20a9703f971145d1ca9fba4ad11f50803a43190     0        999824071 lovelace + 10000000 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.5365636F6E6454657374746F6B656E + 10000000 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.54657374746F6B656E
 ```
 
 ## Sending token to a wallet
@@ -413,7 +440,7 @@ receiver="Insert wallet address here"
 receiver_output="10000000"
 txhash=""
 txix=""
-funds="Amout of lovelace"
+funds="Amount of lovelace"
 ```
 
 Again - here is an example of how it would look if we use our fictional example:
@@ -440,13 +467,12 @@ echo Policy ID: $policyid
 We will be sending 2 of our first tokens, `Testtoken`, to the foreign address.  
 A few things worth pointing out:
 
-1. We are forced to send at least a minimum of 1 ada (1000000 Lovelace) to the foreign address. We can not send tokens only. So we need to factor this value into our output. We will reference the output value of the remote address with the variable receiver_output.
+1. We are forced to send at least a minimum of 1 ada (1000000 Lovelace) to the foreign address. We can not send tokens only. So we need to factor this value into our output. We will reference the output value of the remote address with the variable `receiver_output`.
 2. Apart from the receiving address, we also need to set our own address as an additional output. Since we don't want to send everything we have to the remote address, we're going to use our own address to receive everything else coming from the input.
-3. Our own address, therefore, needs to receive our funds, subtracted by the transaction fee as well as the minimum of 1 ada we need to send to the other address and
-4. all of the tokens the txhash currently holds, subtracted by the tokens we send.
+3. Our own address, therefore, needs to receive our funds, subtracted by the transaction fee as well as the minimum of 1 ada we need to send to the other address and all of the tokens the `txhash` currently holds, subtracted by the tokens we send.
 
 :::note Depending on the size and amount of native assets you are going to send it might be possible to send more than the minimum requirement of only 1 ada. For this guide, we will be sending 10 ada to be on the safe side.
-Check the [Cardano ledger docs for further reading](https://cardano-ledger.readthedocs.io/en/latest/explanations/min-utxo.html#min-ada-value-calculation)
+Check the [Cardano ledger docs for further reading](https://cardano-ledger.readthedocs.io/en/latest/explanations/min-utxo-alonzo.html#example-min-ada-value-calculations-and-current-constants)
 :::
 
 Since we will send 2 of our first tokens to the remote address we are left with 999998 of the `Testtoken` as well as the additional 1000000 `SecondTesttoken`.
@@ -454,7 +480,7 @@ Since we will send 2 of our first tokens to the remote address we are left with 
 Here’s what the `raw` transaction looks like:
 
 ```bash
-cardano-cli transaction build-raw  \
+cardano-cli conway transaction build-raw  \
 --fee $fee  \
 --tx-in $txhash#$txix  \
 --tx-out $receiver+$receiver_output+"2 $policyid.$tokenname1"  \
@@ -465,12 +491,12 @@ cardano-cli transaction build-raw  \
 Again we are going to calculate the fee and save it in a variable.
 
 ```bash
-fee=$(cardano-cli transaction calculate-min-fee --tx-body-file rec_matx.raw --tx-in-count 1 --tx-out-count 2 --witness-count 1 --$testnet --protocol-params-file protocol.json | cut -d " " -f1)
+fee=$(cardano-cli conway transaction calculate-min-fee --tx-body-file rec_matx.raw --tx-in-count 1 --tx-out-count 2 --witness-count 1 $testnet --protocol-params-file protocol.json | cut -d " " -f1)
 ```
 
 As stated above, we need to calculate the leftovers that will get sent back to our address.
 The logic being:
-`TxHash Amout` — `fee` — `min Send 10 ADA in Lovelace` = `the output for our own address`
+`TxHash Amount` — `fee` — `min Send 10 ada in Lovelace` = `the output for our own address`
 
 ```bash
 output=$(expr $funds - $fee - 10000000)
@@ -479,7 +505,7 @@ output=$(expr $funds - $fee - 10000000)
 Let’s update the transaction:
 
 ```bash
-cardano-cli transaction build-raw  \
+cardano-cli conway transaction build-raw  \
 --fee $fee  \
 --tx-in $txhash#$txix  \
 --tx-out $receiver+$receiver_output+"2 $policyid.$tokenname1"  \
@@ -489,12 +515,12 @@ cardano-cli transaction build-raw  \
 
 Sign it:
 ```bash
-cardano-cli transaction sign --signing-key-file payment.skey --$testnet --tx-body-file rec_matx.raw --out-file rec_matx.signed
+cardano-cli conway transaction sign --signing-key-file payment.skey $testnet --tx-body-file rec_matx.raw --out-file rec_matx.signed
 ```
 
 Send it:
 ```bash
-cardano-cli transaction submit --tx-file rec_matx.signed --$testnet
+cardano-cli conway transaction submit --tx-file rec_matx.signed $testnet
 ```
 
 After a few seconds, you, the receiver, should have your tokens. For this example, a Daedalus testnet wallet is used.
@@ -512,7 +538,7 @@ If you've followed this guide up to this point, you should be familiar with the 
 Set everything up and check our address:
 
 ```bash
-cardano-cli query utxo --address $address --$testnet
+cardano-cli query utxo --address $address $testnet
 ```
 
 :::note Since we've already sent tokens away, we need to adjust the amount of Testtoken we are going to send.
@@ -533,7 +559,7 @@ Burning tokens is fairly straightforward.
 You will issue a new minting action, but this time with a <b>negative</b> input. This will essentially subtract the amount of token.
 
 ```bash
-cardano-cli transaction build-raw \
+cardano-cli conway transaction build-raw \
  --fee $burnfee \
  --tx-in $txhash#$txix \
  --tx-out $address+$burnoutput+"9999998 $policyid.$tokenname1 + 9995000 $policyid.$tokenname2"  \
@@ -553,7 +579,7 @@ As usual, we need to calculate the fee.
 To make a better differentiation, we named the variable <i>burnfee</i>:
 
 ```bash
-burnfee=$(cardano-cli transaction calculate-min-fee --tx-body-file burning.raw --tx-in-count 1 --tx-out-count 1 --witness-count 1 --$testnet --protocol-params-file protocol.json | cut -d " " -f1)
+burnfee=$(cardano-cli conway transaction calculate-min-fee --tx-body-file burning.raw --tx-in-count 1 --tx-out-count 1 --witness-count 2 $testnet --protocol-params-file protocol.json | cut -d " " -f1)
 ```
 
 Calculate the correct output value
@@ -564,7 +590,7 @@ burnoutput=$(expr $funds - $burnfee)
 Re-build the transaction with the correct amounts
 
 ```bash
-cardano-cli transaction build-raw \
+cardano-cli conway transaction build-raw \
  --fee $burnfee \
  --tx-in $txhash#$txix \
  --tx-out $address+$burnoutput+"9999998 $policyid.$tokenname1 + 9995000 $policyid.$tokenname2"  \
@@ -576,10 +602,10 @@ cardano-cli transaction build-raw \
  Sign the transaction:
 
  ```bash
- cardano-cli transaction sign  \
+ cardano-cli conway transaction sign  \
 --signing-key-file payment.skey  \
 --signing-key-file policy/policy.skey  \
---$testnet  \
+$testnet  \
 --tx-body-file burning.raw  \
 --out-file burning.signed
 ```
@@ -587,18 +613,18 @@ cardano-cli transaction build-raw \
 Send it:
 
 ```bash
-cardano-cli transaction submit --tx-file burning.signed --$testnet
+cardano-cli conway transaction submit --tx-file burning.signed $testnet
 ```
 
 Check your address: 
 
 ```bash
-cardano-cli query utxo --address $address --$testnet
+cardano-cli query utxo --address $address $testnet
 ```
 
 You should now have 5000 tokens less than before:
 ```bash
                            TxHash                                 TxIx        Amount
 --------------------------------------------------------------------------------------
-f56e2800b7b5980de6a57ebade086a54aaf0457ec517e13012571b712cf53fb3     1        989643170 lovelace + 10000000 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.SecondTesttoken + 9999998 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.Testtoken
+f56e2800b7b5980de6a57ebade086a54aaf0457ec517e13012571b712cf53fb3     1        989643170 lovelace + 9995000 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.5365636F6E6454657374746F6B656E + 9999998 45fb072eb2d45b8be940c13d1f235fa5a8263fc8ebe8c1af5194ea9c.54657374746F6B656E
 ```

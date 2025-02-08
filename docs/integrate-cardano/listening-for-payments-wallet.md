@@ -3,7 +3,7 @@ id: listening-for-payments-wallet
 title: Listening for ada payments using cardano-wallet
 sidebar_label: Receiving payments (cardano-wallet)
 description: How to listen for ada Payments with the cardano-wallet.
-image: ./img/og-developer-portal.png
+image: /img/og/og-developer-portal.png
 --- 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -12,15 +12,15 @@ import TabItem from '@theme/TabItem';
 
 :::note
 
-This guide assumes that you have basic understanding of `cardano-wallet`, how to use it and that you have installed it into your system. Otherwise we recommend reading [Installing cardano-node](/docs/get-started/installing-cardano-node), [Running cardano-node](/docs/get-started/running-cardano) and [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guides first.
+This guide assumes that you have basic understanding of `cardano-wallet`, how to use it and that you have installed it into your system. Otherwise we recommend reading [Installing cardano-node](docs/get-started/cardano-node/installing-cardano-node.md), [Running cardano-node](/docs/get-started/cardano-node/running-cardano.md) and [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guides first.
 
-This guide also assumes that you have `cardano-node` and `cardano-wallet` running in the background and connected to the `testnet` network.
+This guide also assumes that you have `cardano-node` and `cardano-wallet` running in the background and connected to a [testnet network](docs/get-started/testnets-and-devnets.md).
 
 :::
 
 ## Use case
 
-There are many possible reasons why you would want to have the functionality of listening for `ADA` payments, but a very obvious use case would be for something like an **online shop** or a **payment gateway** that uses `ADA` tokens as the currency.
+There are many possible reasons why you would want to have the functionality of listening for `ada` payments, but a very obvious use case would be for something like an **online shop** or a **payment gateway** that uses `ada` tokens as the currency.
 
 ![img](../../static/img/integrate-cardano/ada-online-shop.png)
 
@@ -30,9 +30,9 @@ To understand how something like this could work in a technical point of view, l
 
 ![img](../../static/img/integrate-cardano/ada-payment-flow-wallet.png)
 
-So let's imagine a very basic scenario where a **customer** is browsing an online shop. Once the user has choosen and added all the items into the **shopping cart**. The next step would then be to checkout and pay for the items, Of course we will be using **Cardano** for that!
+So let's imagine a very basic scenario where a **customer** is browsing an online shop. Once the user has chosen and added all the items into the **shopping cart**. The next step would then be to checkout and pay for the items, Of course we will be using **Cardano** for that!
 
-The **front-end** application would then request for a **wallet address** from the backend service and render a QR code to the **customer** to be scanned via a **Cardano wallet**. The backend service would then know that it has to query the `cardano-wallet` with a certain time interval to confirm and alert the **front-end** application that the payment has completed succesfully.
+The **front-end** application would then request for a **wallet address** from the backend service and render a QR code to the **customer** to be scanned via a **Cardano wallet**. The backend service would then know that it has to query the `cardano-wallet` with a certain time interval to confirm and alert the **front-end** application that the payment has completed successfully.
 
 In the meantime the transaction is then being processed and settled within the **Cardano** network. We can see in the diagram above that both parties are ultimately connected to the network via the `cardano-node` software component.
 
@@ -40,7 +40,7 @@ In the meantime the transaction is then being processed and settled within the *
 
 Now let's get our hands dirty and see how we can implement something like this in actual code.
 
-### Generate wallet and request tADA
+### Generate wallet and request tAda
 
 First, we create our new **wallet** via `cardano-wallet` **REST API**:
 
@@ -197,7 +197,7 @@ var resp = await http.PostAsJsonAsync("wallets", new {
 
 #### Get unused wallet address to receive some payments
 
-We will get a **wallet address** to show to the customers and for them to send payments to the wallet. In this case we can use the address to request some `tADA` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) and simulate a payment:
+We will get a **wallet address** to show to the customers and for them to send payments to the wallet. In this case we can use the address to request some `tAda` from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet) and simulate a payment:
 
 <Tabs
   defaultValue="js"
@@ -355,7 +355,7 @@ var balance = wallet.GetProperty("balance").GetProperty("total").GetProperty("qu
 
 ### Determine if payment is successful
 
-Once we have the total lovelace amount, we will then determine using our code if a specific payment is a success, ultimately sending or shipping the item if it is indeed succesful. In our example, we expect that the payment is equal to `1,000,000 lovelace` that we defined in our `totalExpectedLovelace` constant.
+Once we have the total lovelace amount, we will then determine using our code if a specific payment is a success, ultimately sending or shipping the item if it is indeed successful. In our example, we expect that the payment is equal to `1,000,000 lovelace` that we defined in our `totalExpectedLovelace` constant.
 
 <Tabs
   defaultValue="js"
@@ -584,9 +584,9 @@ The code is telling us that our current wallet has received a total of `0 lovela
 
 ## Complete the payment
 
-What we can do to simulate a succesful payment is to send atleast `1,000,000 lovelace` into the **wallet address** that we have just generated for this project. We show how you can get the **wallet address** via code in the examples above.
+What we can do to simulate a successful payment is to send at least `1,000,000 lovelace` into the **wallet address** that we have just generated for this project. We show how you can get the **wallet address** via code in the examples above.
 
-Now simply send atleast `1,000,000 lovelace` to this **wallet address** or request some `test ADA` funds from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet). Once complete, we can now run the code again and we should see a succesful result this time.
+Now simply send at least `1,000,000 lovelace` to this **wallet address** or request some `test ada` funds from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet). Once complete, we can now run the code again and we should see a successful result this time.
 
 <Tabs
   defaultValue="js"
@@ -643,4 +643,4 @@ Payment Complete: ✅
 It might take 20 seconds or more for the transaction to propagate within the network depending on the network health, so you will have to be patient.
 :::
 
-Congratulations, you are now able to detect succesful **Cardano** payments programatically. This should help you bring integrations to your existing or new upcoming applications. 🎉🎉🎉
+Congratulations, you are now able to detect successful **Cardano** payments programmatically. This should help you bring integrations to your existing or new upcoming applications. 🎉🎉🎉

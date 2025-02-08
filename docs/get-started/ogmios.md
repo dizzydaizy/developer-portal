@@ -3,12 +3,12 @@ id: ogmios
 title: Get Started with Ogmios
 sidebar_label: Ogmios
 description: Get Started with Ogmios
-image: ./img/og-developer-portal.png
+image: /img/og/og-getstarted-ogmios.png
 ---
 
-Ogmios is a protocol translation service written in Haskell running on top of cardano-node. Instead of speaking to a Cardano node directly, applications can speak to Ogmios using a language they know, and Ogmios translates it to the node and back to the applications.
+**Ogmios** is a lightweight bridge interface for [cardano-node](https://github.com/IntersectMBO/cardano-node). It offers a WebSockets API that enables local clients to speak [Ouroboros' mini-protocols](https://github.com/IntersectMBO/ouroboros-network/tree/master/docs/network-spec) via JSON/RPC.
 
-Ogmios doesn’t do much more than what the node itself does. It’s pretty much as low-level as things can get with the Cardano network. For many applications, this is too low in the abstraction layer and they would be better off using higher-level services like [cardano-graphql](https://github.com/input-output-hk/cardano-graphql), [Rosetta](https://www.rosetta-api.org), or [Blockfrost](https://blockfrost.io).
+Ogmios doesn’t do much more than what the node itself does. It’s pretty much as low-level as things can get with the Cardano network. For many applications, this is too low in the abstraction layer and they would be better off using higher-level services like [cardano-graphql](https://github.com/cardano-foundation/cardano-graphql), [Rosetta](https://www.rosetta-api.org), or [Blockfrost](https://blockfrost.io).
 
 ## Installation
 
@@ -98,4 +98,4 @@ JSON response:
 
 ## Ogmios documentation
 
-To dive further into Ogmios and how to interact with the Ouroboros mini-protocols, visit [ogmios.dev](https://ogmios.dev/mini-protocols/local-chain-sync/).
+To dive further into Ogmios and how to interact with the Ouroboros mini-protocols, visit [ogmios.dev](https://ogmios.dev/mini-protocols).

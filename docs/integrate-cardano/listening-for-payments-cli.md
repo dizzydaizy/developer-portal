@@ -1,9 +1,9 @@
 ---
 id: listening-for-payments-cli
-title: Listening for ADA payments using cardano-cli
+title: Listening for ada payments using cardano-cli
 sidebar_label: Receiving payments (cardano-cli)
-description: How to listen for ADA Payments with the cardano-cli.
-image: ./img/og-developer-portal.png
+description: How to listen for ada Payments with the cardano-cli.
+image: /img/og/og-developer-portal.png
 --- 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -11,14 +11,14 @@ import TabItem from '@theme/TabItem';
 ## Overview
 
 :::note
-This guide assumes that you have basic understanding of `cardano-cli`, how to use it and that you have installed it into your system. Otherwise we recommend reading [Installing cardano-node](/docs/get-started/installing-cardano-node), [Running cardano-node](/docs/get-started/running-cardano) and [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guides first.
+This guide assumes that you have basic understanding of `cardano-cli`, how to use it and that you have installed it into your system. Otherwise we recommend reading [Installing cardano-node](docs/get-started/cardano-node/installing-cardano-node.md), [Running cardano-node](/docs/get-started/cardano-node/running-cardano.md) and [Exploring Cardano Wallets](/docs/integrate-cardano/creating-wallet-faucet) guides first.
 
-This guide also assumes that you have `cardano-node` running in the background and connected to the `testnet` network.
+This guide also assumes that you have `cardano-node` running in the background and connected to a [testnet network](docs/get-started/testnets-and-devnets.md).
 :::
 
 ## Use case
 
-There are many possible reasons why you would want to have the functionality of listening for `ADA` payments, but a very obvious use case would be for something like an **online shop** or a **payment gateway** that uses `ADA` tokens as the currency.
+There are many possible reasons why you would want to have the functionality of listening for `ada` payments, but a very obvious use case would be for something like an **online shop** or a **payment gateway** that uses `ada` tokens as the currency.
 
 ![img](../../static/img/integrate-cardano/ada-online-shop.png)
 
@@ -28,9 +28,9 @@ To understand how something like this could work in a technical point of view, l
 
 ![img](../../static/img/integrate-cardano/ada-payment-flow.png)
 
-So let's imagine a very basic scenario where a **customer** is browsing an online shop. Once the user has choosen and added all the items into the **shopping cart**. The next step would then be to checkout and pay for the items, Of course we will be using **Cardano** for that!
+So let's imagine a very basic scenario where a **customer** is browsing an online shop. Once the user has chosen and added all the items into the **shopping cart**, the next step would then be to checkout and pay for the items. Of course we will be using **Cardano** for that!
 
-The **front-end** application would then request for a **wallet address** from the backend service and render a QR code to the **customer** to be scanned via a **Cardano wallet**. The backend service would then know that it has to query the **wallet address** using `cardano-cli` with a certain time interval to confirm and alert the **front-end** application that the payment has completed succesfully.
+The **front-end** application would then request for a **wallet address** from the backend service and render a QR code to the **customer** to be scanned via a **Cardano wallet**. The backend service would then know that it has to query the **wallet address** using `cardano-cli` with a certain time interval to confirm and alert the **front-end** application that the payment has completed successfully.
 
 In the meantime the transaction is then being processed and settled within the **Cardano** network. We can see in the diagram above that both parties are ultimately connected to the network via the `cardano-node` software component.
 
@@ -39,39 +39,39 @@ In the meantime the transaction is then being processed and settled within the *
 Now let's get our hands dirty and see how we can implement something like this in actual code.
 
 :::note
-In this section, We will use the path `/home/user/receive-ada-sample` to store all the related files as an example, please replace it with the directory you have choosen to store the files.
-All the code examples in this article assumes that you will save all the source-code-files under the root of this directory.
+In this section, we will use the path `$HOME/receive-ada-sample` to store all the related files as an example, please replace it with the directory you have chosen to store the files.
+All the code examples in this article assume that you will save all the source-code-files under the root of this directory.
 :::
 
-### Generate keys and request tADA
+### Generate keys and request tAda
 
-First, lets create a directory to store our sample project:
+First, let's create a directory to store our sample project:
 
 ```bash
-mkdir -p /home/user/receive-ada-sample/keys
+mkdir -p $HOME/receive-ada-sample/keys
 ```
 
 Next, we generate our **payment key-pair** using `cardano-cli`:
 
 ```bash
 cardano-cli address key-gen \
---verification-key-file /home/user/receive-ada-sample/keys/payment.vkey \
---signing-key-file /home/user/receive-ada-sample/keys/payment.skey
+--verification-key-file $HOME/receive-ada-sample/keys/payment.vkey \
+--signing-key-file $HOME/receive-ada-sample/keys/payment.skey
 ```
 
-Since we now have our **payment key-pair**, the next step would be to generate a **wallet address** for the `testnet` network like so:
+Since we now have our **payment key-pair**, the next step would be to generate a **wallet address** for a testnet network like so:
 
 ```bash
 cardano-cli address build \
---payment-verification-key-file /home/user/receive-ada-sample/keys/payment.vkey \
---out-file /home/user/receive-ada-sample/keys/payment.addr \
+--payment-verification-key-file $HOME/receive-ada-sample/keys/payment.vkey \
+--out-file $HOME/receive-ada-sample/keys/payment.addr \
 --testnet-magic 1097911063
 ```
 
 Your directory structure should now look like this:
 
 ```bash
-/home/user/receive-ada-sample/receive-ada-sample
+$HOME/receive-ada-sample/receive-ada-sample
 └── keys
     ├── payment.addr
     ├── payment.skey
@@ -103,10 +103,10 @@ import cmd from 'node-cmd';
 
 // Path to the cardano-cli binary or use the global one
 const CARDANO_CLI_PATH = "cardano-cli";
-// The `testnet` identifier number
+// The testnet identifier number
 const CARDANO_NETWORK_MAGIC = 1097911063;
 // The directory where we store our payment keys
-// assuming our current directory context is /home/user/receive-ada-sample
+// assuming our current directory context is $HOME/receive-ada-sample
 const CARDANO_KEYS_DIR = "keys";
 // The total payment we expect in lovelace unit
 const TOTAL_EXPECTED_LOVELACE = 1000000;
@@ -122,10 +122,10 @@ const cmd: any = require('node-cmd');
 
 // Path to the cardano-cli binary or use the global one
 const CARDANO_CLI_PATH: string = "cardano-cli";
-// The `testnet` identifier number
+// The testnet identifier number
 const CARDANO_NETWORK_MAGIC: number = 1097911063;
 // The directory where we store our payment keys
-// assuming our current directory context is /home/user/receive-ada-sample/receive-ada-sample
+// assuming our current directory context is $HOME/receive-ada-sample/receive-ada-sample
 const CARDANO_KEYS_DIR: string = "keys";
 // The total payment we expect in lovelace unit
 const TOTAL_EXPECTED_LOVELACE: number = 1000000;
@@ -140,10 +140,10 @@ import subprocess
 
 # Path to the cardano-cli binary or use the global one
 CARDANO_CLI_PATH = "cardano-cli"
-# The `testnet` identifier number
+# The testnet identifier number
 CARDANO_NETWORK_MAGIC = 1097911063
 # The directory where we store our payment keys
-# assuming our current directory context is /home/user/receive-ada-sample
+# assuming our current directory context is $HOME/receive-ada-sample
 CARDANO_KEYS_DIR = "keys"
 # The total payment we expect in lovelace unit
 TOTAL_EXPECTED_LOVELACE = 1000000
@@ -158,10 +158,10 @@ using SimpleExec; // `dotnet add package SimpleExec --version 7.0.0`
 
 // Path to the cardano-cli binary or use the global one
 const string CARDANO_CLI_PATH = "cardano-cli";
-// The `testnet` identifier number
+// The testnet identifier number
 const int CARDANO_NETWORK_MAGIC = 1097911063;
 // The directory where we store our payment keys
-// assuming our current directory context is /home/user/receive-ada-sample
+// assuming our current directory context is $HOME/user/receive-ada-sample
 const string CARDANO_KEYS_DIR = "keys";
 // The total payment we expect in lovelace unit
 const long TOTAL_EXPECTED_LOVELACE = 1000000;
@@ -221,7 +221,7 @@ var walletAddress = await System.IO.File.ReadAllTextAsync($"{CARDANO_KEYS_DIR}/p
 
 ### Query UTxO
 
-Then we execute `cardano-cli` programatically and telling it to query the **UTxO** for the **wallet address** that we have generated with our keys and save the `stdout` result to our `rawUtxoTable` variable.
+Then we execute `cardano-cli` programmatically and telling it to query the **UTxO** for the **wallet address** that we have generated with our keys and save the `stdout` result to our `rawUtxoTable` variable.
 
 <Tabs
   defaultValue="js"
@@ -360,9 +360,9 @@ foreach(var row in utxoTableRows.Skip(2)){
   </TabItem>
 </Tabs>
 
-### Determine if payment is succesful
+### Determine if payment is successful
 
-Once we have the total lovelace amount, we will then determine using our code if a specific payment is a success, ultimately sending or shipping the item if it is indeed succesful. In our example, we expect that the payment is equal to `1,000,000 lovelace` that we defined in our `TOTAL_EXPECTED_LOVELACE` constant variable.
+Once we have the total lovelace amount, we will then determine using our code if a specific payment is a success, ultimately sending or shipping the item if it is indeed successful. In our example, we expect that the payment is equal to `1,000,000 lovelace` that we defined in our `TOTAL_EXPECTED_LOVELACE` constant variable.
 
 <Tabs
   defaultValue="js"
@@ -453,7 +453,7 @@ const CARDANO_CLI_PATH = "cardano-cli";
 // The `testnet` identifier number
 const CARDANO_NETWORK_MAGIC = 1097911063;
 // The directory where we store our payment keys
-// assuming our current directory context is /home/user/receive-ada-sample/receive-ada-sample
+// assuming our current directory context is $HOME/receive-ada-sample/receive-ada-sample
 const CARDANO_KEYS_DIR = "keys";
 // The imaginary total payment we expect in lovelace unit
 const TOTAL_EXPECTED_LOVELACE = 1000000;
@@ -498,10 +498,10 @@ const cmd: any = require('node-cmd');
 
 // Path to the cardano-cli binary or use the global one
 const CARDANO_CLI_PATH: string = "cardano-cli";
-// The `testnet` identifier number
+// The testnet identifier number
 const CARDANO_NETWORK_MAGIC: number = 1097911063;
 // The directory where we store our payment keys
-// assuming our current directory context is /home/user/receive-ada-sample/receive-ada-sample
+// assuming our current directory context is $HOME/receive-ada-sample/receive-ada-sample
 const CARDANO_KEYS_DIR: string = "keys";
 // The imaginary total payment we expect in lovelace unit
 const TOTAL_EXPECTED_LOVELACE: number = 1000000;
@@ -552,7 +552,7 @@ const string CARDANO_CLI_PATH = "cardano-cli";
 // The `testnet` identifier number
 const int CARDANO_NETWORK_MAGIC = 1097911063;
 // The directory where we store our payment keys
-// assuming our current directory context is /home/user/receive-ada-sample
+// assuming our current directory context is $HOME/receive-ada-sample
 const string CARDANO_KEYS_DIR = "keys";
 // The total payment we expect in lovelace unit
 const long TOTAL_EXPECTED_LOVELACE = 1000000;
@@ -595,10 +595,10 @@ import subprocess
 
 # Path to the cardano-cli binary or use the global one
 CARDANO_CLI_PATH = "cardano-cli"
-# The `testnet` identifier number
+# The testnet identifier number
 CARDANO_NETWORK_MAGIC = 1097911063
 # The directory where we store our payment keys
-# assuming our current directory context is /home/user/receive-ada-sample
+# assuming our current directory context is $HOME/receive-ada-sample
 CARDANO_KEYS_DIR = "keys"
 # The total payment we expect in lovelace unit
 TOTAL_EXPECTED_LOVELACE = 1000000
@@ -651,7 +651,7 @@ Your project directory should look something like this:
 ```bash
 # Excluding node_modules directory
 
-/home/user/receive-ada-sample/receive-ada-sample
+$HOME/receive-ada-sample/receive-ada-sample
 ├── checkPayment.js
 ├── keys
 │   ├── payment.addr
@@ -669,7 +669,7 @@ Your project directory should look something like this:
 ```bash
 # Excluding node_modules directory
 
-/home/user/receive-ada-sample/receive-ada-sample
+$HOME/receive-ada-sample/receive-ada-sample
 ├── checkPayment.ts
 ├── keys
 │   ├── payment.addr
@@ -687,7 +687,7 @@ Your project directory should look something like this:
 ```bash
 # Excluding bin and obj directories
 
-/home/user/receive-ada-sample/receive-ada-sample
+$HOME/receive-ada-sample/receive-ada-sample
 ├── Program.cs
 ├── dotnet.csproj
 ├── keys
@@ -702,7 +702,7 @@ Your project directory should look something like this:
   <TabItem value="py">
 
 ```bash
-/home/user/receive-ada-sample/receive-ada-sample
+$HOME/receive-ada-sample/receive-ada-sample
 ├── checkPayment.py
 └── keys
     ├── payment.addr
@@ -772,10 +772,10 @@ The code is telling us that our current wallet has received a total of `0 lovela
 
 ## Complete the payment
 
-What we can do to simulate a succesful payment is to send atleast `1,000,000 lovelace` into the **wallet address** that we have just generated for this project. We can get the **wallet address** by reading the contents of the `payment.addr` file like so:
+What we can do to simulate a successful payment is to send at least `1,000,000 lovelace` into the **wallet address** that we have just generated for this project. We can get the **wallet address** by reading the contents of the `payment.addr` file like so:
 
 ```bash
-cat /home/user/receive-ada-sample/receive-ada-sample/keys/payment.addr
+cat $HOME/receive-ada-sample/receive-ada-sample/keys/payment.addr
 ```
 
 You should see the **wallet address** value:
@@ -784,7 +784,7 @@ You should see the **wallet address** value:
 addr_test1vpfkp665a6wn7nxvjql5vdn5g5a94tc22njf4lf98afk6tgnz5ge4
 ```
 
-Now simply send atleast `1,000,000 lovelace` to this **wallet address** or request some `test ADA` funds from the [Cardano Testnet Faucet](../integrate-cardano/testnet-faucet). Once complete, we can now run the code again and we should see a succesful result this time.
+Now simply send at least `1,000,000 lovelace` to this **wallet address** or request some `test ada` funds from the [Cardano Testnet Faucet](https://docs.cardano.org/cardano-testnet/tools/faucet). Once complete, we can now run the code again and we should see a successful result this time.
 
 <Tabs
   defaultValue="js"
@@ -843,4 +843,4 @@ It might take 20 seconds or more for the transaction to propagate within the net
 
 :::
 
-Congratulations, you are now able to detect succesful **Cardano** payments programatically. This should help you bring integrations to your existing or new upcoming applications. 🎉🎉🎉
+Congratulations, you are now able to detect successful **Cardano** payments programmatically. This should help you bring integrations to your existing or new upcoming applications. 🎉🎉🎉
